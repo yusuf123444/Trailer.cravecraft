@@ -1,0 +1,825 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инвестиции — CRAVECRAFT</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+:root {
+    --orange: #ff8a00;
+    --orange2: #ffb347;
+    --dark: #151923;
+    --muted: #9ba2b1;
+    --green: #35d07f;
+    --red: #ff6262;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #0d1017;
+    color: #f5f6fa;
+    font-family: Inter, Arial, sans-serif;
+}
+button { font: inherit; cursor: pointer; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+.container { width: min(1250px, 94%); margin: auto; }
+header {
+    background: #11141c;
+    border-bottom: 1px solid #ffffff12;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+.logo { font-size: 24px; font-weight: 950; letter-spacing: -1px; }
+.logo span, .orange { color: var(--orange); }
+.nav-links { display: flex; gap: 18px; flex-wrap: wrap; }
+.nav-links a { color: #c3c6d0; text-decoration: none; font-size: 14px; }
+.nav-links a:hover { color: var(--orange); }
+.hero { padding: 40px 0 25px; }
+.eyebrow {
+    display: inline-block;
+    border: 1px solid #ff8a0044;
+    background: #ff8a0012;
+    color: var(--orange2);
+    border-radius: 30px;
+    padding: 8px 13px;
+    font-size: 12px;
+    font-weight: 800;
+}
+h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 17px 0 12px; letter-spacing: -1.7px; }
+.subtitle { color: var(--muted); line-height: 1.7; max-width: 680px; }
+.panel {
+    background: linear-gradient(145deg, #191e29, #131720);
+    border: 1px solid #ffffff12;
+    border-radius: 20px;
+    padding: 22px;
+    min-width: 0;
+}
+.balance-panel {
+    background: radial-gradient(ellipse at top right, #ff8a002b, transparent 60%), #171b25;
+    border-color: #ff8a0038;
+}
+.label { color: var(--muted); font-size: 13px; }
+.big-balance {
+    font-size: clamp(28px, 4vw, 43px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    overflow-wrap: anywhere;
+    margin: 10px 0;
+}
+.money { color: var(--orange2); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+.stat-value { font-size: 22px; font-weight: 850; margin-top: 10px; overflow-wrap: anywhere; }
+.section { margin: 25px 0; }
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+.section-heading h2 { margin: 0; font-size: 23px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; }
+.two-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 15px; }
+.card-icon {
+    width: 50px; height: 50px;
+    display: grid; place-items: center;
+    background: #ff8a0019; border: 1px solid #ff8a0030;
+    border-radius: 15px; font-size: 25px; margin-bottom: 15px;
+}
+.card h3 { margin: 0 0 9px; font-size: 18px; }
+.card p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.card-price { font-size: 20px; font-weight: 850; margin: 17px 0 5px; }
+.card-meta { color: var(--green); font-size: 13px; font-weight: 700; }
+.btn {
+    border: 1px solid #ffffff19;
+    background: #252b38;
+    color: white;
+    border-radius: 11px;
+    padding: 12px 15px;
+    font-weight: 750;
+    transition: .2s;
+}
+.btn:hover { transform: translateY(-1px); border-color: #ff8a0077; }
+.btn-primary {
+    color: #17120a;
+    border: none;
+    background: linear-gradient(135deg, #ff9d19, #ff7200);
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-danger { background: #ff626215; color: #ff8585; border-color: #ff626233; }
+.btn-full { width: 100%; margin-top: 14px; }
+.progress { height: 7px; border-radius: 20px; background: #ffffff12; overflow: hidden; margin-top: 13px; }
+.progress span { display: block; height: 100%; background: linear-gradient(90deg, #ff8a00, #ffcc69); border-radius: inherit; transition: width .3s; }
+.list { display: grid; gap: 10px; }
+.row-item {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 13px 0; border-bottom: 1px solid #ffffff0e;
+}
+.row-item:last-child { border-bottom: 0; }
+.row-item strong { display: block; font-size: 14px; }
+.row-item small { display: block; color: var(--muted); margin-top: 5px; }
+.row-item .amount { text-align: right; font-weight: 800; white-space: nowrap; }
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+canvas { width: 100%; height: 220px; display: block; }
+input {
+    width: 100%; border: 1px solid #ffffff1a; background: #0d1017;
+    color: white; border-radius: 10px; padding: 12px; outline: none;
+}
+input:focus { border-color: var(--orange); }
+.notice { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 12px; }
+.toast {
+    position: fixed; right: 20px; bottom: 20px; z-index: 100;
+    padding: 14px 18px; background: #202633; border: 1px solid #ffffff20;
+    border-radius: 13px; box-shadow: 0 15px 50px #0006;
+    max-width: min(380px, calc(100vw - 40px));
+    opacity: 0; transform: translateY(12px); pointer-events: none;
+    transition: .25s;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+footer { color: #707786; padding: 30px 0 45px; text-align: center; font-size: 12px; }
+@media(max-width:850px) {
+    .stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .two-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:560px) {
+    .nav { align-items: flex-start; padding: 15px 0; flex-direction: column; }
+    .nav-links { gap: 13px; }
+    .grid { grid-template-columns: 1fr; }
+    .panel { padding: 17px; }
+    .stat-value { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <a class="logo" href="index.html" style="text-decoration:none;color:white">
+            CRAVE<span>CRAFT</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Главная</a>
+            <a href="menu.html">Меню</a>
+            <a href="services.html">Сервисы</a>
+            <a href="about.html">О нас</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <span class="eyebrow">📈 БИЗНЕС-СИМУЛЯТОР</span>
+        <h1>Твой ресторан.<br><span class="orange">Твои инвестиции.</span></h1>
+        <p class="subtitle">
+            Развивай CRAVECRAFT, вкладывай деньги в маркетинг, оборудование и доставку,
+            открывай филиалы и увеличивай виртуальную прибыль.
+        </p>
+    </section>
+
+    <section class="panel balance-panel">
+        <div class="label">ТВОЙ ИГРОВОЙ БАЛАНС</div>
+        <div class="big-balance money" id="balance">100 000 сум</div>
+        <div class="label">Все операции здесь виртуальные и не используют реальные деньги.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+            <button class="btn btn-primary" id="collectBtn">Получить доход за день</button>
+            <button class="btn" id="investQuickBtn">К инвестициям ↓</button>
+        </div>
+    </section>
+
+    <section class="section stats">
+        <div class="panel">
+            <div class="label">Доход за игровой день</div>
+            <div class="stat-value positive" id="dailyIncome">0 сум</div>
+        </div>
+        <div class="panel">
+            <div class="label">Всего заработано</div>
+            <div class="stat-value" id="totalEarned">0 сум</div>
+        </div>
+        <div class="panel">
+            <div class="label">Филиалы</div>
+            <div class="stat-value" id="branches">1</div>
+        </div>
+        <div class="panel">
+            <div class="label">Уровень ресторана</div>
+            <div class="stat-value" id="level">1</div>
+        </div>
+    </section>
+
+    <section class="section" id="investments">
+        <div class="section-heading">
+            <h2>Во что инвестировать</h2>
+            <span class="label">Покупай улучшения и развивай бизнес</span>
+        </div>
+        <div class="grid" id="investmentCards"></div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <h2>Развитие ресторана</h2>
+        </div>
+        <div class="grid" id="upgradeCards"></div>
+    </section>
+
+    <section class="section two-grid">
+        <div class="panel">
+            <div class="section-heading">
+                <h2>График баланса</h2>
+                <span class="label">Последние игровые дни</span>
+            </div>
+            <canvas id="balanceChart"></canvas>
+            <div class="notice">График показывает изменение баланса после получения дохода и покупок.</div>
+        </div>
+        <div class="panel">
+            <div class="section-heading">
+                <h2>Сводка бизнеса</h2>
+            </div>
+            <div class="list">
+                <div class="row-item">
+                    <div><strong>Маркетинг</strong><small>Уровень рекламы</small></div>
+                    <div class="amount" id="marketingLevel">0</div>
+                </div>
+                <div class="row-item">
+                    <div><strong>Оборудование</strong><small>Уровень кухни</small></div>
+                    <div class="amount" id="equipmentLevel">0</div>
+                </div>
+                <div class="row-item">
+                    <div><strong>Доставка</strong><small>Уровень доставки</small></div>
+                    <div class="amount" id="deliveryLevel">0</div>
+                </div>
+                <div class="row-item">
+                    <div><strong>Программа лояльности</strong><small>Уровень бонусов</small></div>
+                    <div class="amount" id="loyaltyLevel">0</div>
+                </div>
+            </div>
+            <p class="notice">Чем больше улучшений, тем выше виртуальный доход за день.</p>
+        </div>
+    </section>
+
+    <section class="section two-grid">
+        <div class="panel">
+            <div class="section-heading">
+                <h2>История операций</h2>
+                <button class="btn" id="exportBtn">Экспорт CSV</button>
+            </div>
+            <div class="list" id="transactions"></div>
+            <p class="notice" id="emptyHistory">Операций пока нет. Сделай первую инвестицию!</p>
+        </div>
+        <div class="panel">
+            <h2 style="margin-top:0">Управление сохранением</h2>
+            <p class="subtitle" style="font-size:13px">
+                Твой прогресс автоматически сохраняется в браузере на этом устройстве.
+            </p>
+            <button class="btn btn-full" id="saveBtn">Сохранить прогресс</button>
+            <button class="btn btn-full" id="resetBtn">Начать заново со 100 000 сум</button>
+            <p class="notice">
+                Сброс удалит сохранённый прогресс именно этого симулятора.
+                Это не влияет на другие страницы CRAVECRAFT.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer class="container">
+    CRAVECRAFT © 2026 · Виртуальный симулятор ресторанного бизнеса
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+    "use strict";
+
+    const START_BALANCE = 100000;
+    const STORAGE_KEY = "cravecraft_investments_100k_v1";
+
+    const INVESTMENTS = [
+        {
+            id: "marketing",
+            icon: "📣",
+            name: "Маркетинг",
+            description: "Реклама привлекает новых посетителей и увеличивает продажи.",
+            baseCost: 15000,
+            income: 3500,
+            max: 20
+        },
+        {
+            id: "delivery",
+            icon: "🛵",
+            name: "Служба доставки",
+            description: "Расширяй доставку и получай больше виртуальных заказов.",
+            baseCost: 20000,
+            income: 5000,
+            max: 20
+        },
+        {
+            id: "equipment",
+            icon: "🍳",
+            name: "Оборудование кухни",
+            description: "Улучшенная кухня позволяет обслуживать больше клиентов.",
+            baseCost: 25000,
+            income: 6500,
+            max: 20
+        },
+        {
+            id: "loyalty",
+            icon: "⭐",
+            name: "Программа лояльности",
+            description: "Бонусы мотивируют гостей возвращаться в ресторан.",
+            baseCost: 12000,
+            income: 2800,
+            max: 20
+        },
+        {
+            id: "digital",
+            icon: "📱",
+            name: "Онлайн-заказы",
+            description: "Развивай цифровые продажи и принимай больше заказов.",
+            baseCost: 30000,
+            income: 8000,
+            max: 20
+        },
+        {
+            id: "menu",
+            icon: "🍔",
+            name: "Новое меню",
+            description: "Добавляй новые позиции и увеличивай средний чек.",
+            baseCost: 18000,
+            income: 4200,
+            max: 20
+        }
+    ];
+
+    const UPGRADES = [
+        {
+            id: "renovation",
+            icon: "🏢",
+            name: "Ремонт ресторана",
+            description: "Повышает уровень заведения и усиливает весь доход.",
+            baseCost: 30000,
+            max: 10
+        },
+        {
+            id: "staff",
+            icon: "👨‍🍳",
+            name: "Обучение персонала",
+            description: "Улучшает обслуживание и эффективность команды.",
+            baseCost: 25000,
+            max: 10
+        },
+        {
+            id: "branch",
+            icon: "🏬",
+            name: "Открыть филиал",
+            description: "Каждый новый филиал увеличивает базовый доход бизнеса.",
+            baseCost: 75000,
+            max: 50
+        }
+    ];
+
+    const $ = id => document.getElementById(id);
+    const money = value => Math.floor(value).toLocaleString("ru-RU") + " сум";
+
+    function initialState() {
+        return {
+            balance: START_BALANCE,
+            totalEarned: 0,
+            day: 1,
+            levels: {
+                marketing: 0,
+                delivery: 0,
+                equipment: 0,
+                loyalty: 0,
+                digital: 0,
+                menu: 0,
+                renovation: 0,
+                staff: 0,
+                branch: 0
+            },
+            history: [],
+            chart: [START_BALANCE]
+        };
+    }
+
+    function loadState() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return initialState();
+
+            const saved = JSON.parse(raw);
+            const fresh = initialState();
+
+            if (!saved || typeof saved !== "object") return fresh;
+
+            fresh.balance = Number.isFinite(saved.balance) && saved.balance >= 0
+                ? saved.balance : START_BALANCE;
+            fresh.totalEarned = Number.isFinite(saved.totalEarned)
+                ? Math.max(0, saved.totalEarned) : 0;
+            fresh.day = Number.isFinite(saved.day) ? Math.max(1, saved.day) : 1;
+
+            fresh.levels = { ...fresh.levels, ...(saved.levels || {}) };
+            fresh.history = Array.isArray(saved.history) ? saved.history.slice(0, 60) : [];
+            fresh.chart = Array.isArray(saved.chart) && saved.chart.length
+                ? saved.chart.slice(-30) : [START_BALANCE];
+
+            return fresh;
+        } catch {
+            return initialState();
+        }
+    }
+
+    let state = loadState();
+    let toastTimer;
+
+    function saveState() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch {
+            showToast("Не удалось сохранить прогресс. Проверь настройки браузера.");
+        }
+    }
+
+    function dailyIncome() {
+        let income = 3000;
+
+        for (const item of INVESTMENTS) {
+            income += (state.levels[item.id] || 0) * item.income;
+        }
+
+        income += (state.levels.branch || 0) * 15000;
+
+        const multipliers =
+            1 +
+            (state.levels.renovation || 0) * 0.15 +
+            (state.levels.staff || 0) * 0.10;
+
+        return Math.floor(income * multipliers);
+    }
+
+    function restaurantLevel() {
+        return 1 +
+            (state.levels.renovation || 0) +
+            Math.floor((state.levels.staff || 0) / 2);
+    }
+
+    function addHistory(title, amount, type) {
+        state.history.unshift({
+            title,
+            amount,
+            type,
+            day: state.day,
+            date: new Date().toLocaleString("ru-RU")
+        });
+        state.history = state.history.slice(0, 60);
+    }
+
+    function showToast(message) {
+        const toast = $("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function investmentCost(item) {
+        const level = state.levels[item.id] || 0;
+        return Math.floor(item.baseCost * Math.pow(1.48, level));
+    }
+
+    function upgradeCost(item) {
+        const level = state.levels[item.id] || 0;
+        return Math.floor(item.baseCost * Math.pow(1.75, level));
+    }
+
+    function buyInvestment(id) {
+        const item = INVESTMENTS.find(x => x.id === id);
+        if (!item) return;
+
+        const level = state.levels[id] || 0;
+        if (level >= item.max) {
+            showToast("Достигнут максимальный уровень!");
+            return;
+        }
+
+        const cost = investmentCost(item);
+        if (state.balance < cost) {
+            showToast("Недостаточно денег для этой инвестиции.");
+            return;
+        }
+
+        state.balance -= cost;
+        state.levels[id] = level + 1;
+        addHistory("Инвестиция: " + item.name, -cost, "expense");
+        state.chart.push(state.balance);
+        state.chart = state.chart.slice(-30);
+        saveState();
+        render();
+        showToast("Инвестиция куплена: " + item.name);
+    }
+
+    function buyUpgrade(id) {
+        const item = UPGRADES.find(x => x.id === id);
+        if (!item) return;
+
+        const level = state.levels[id] || 0;
+        if (level >= item.max) {
+            showToast("Достигнут максимальный уровень!");
+            return;
+        }
+
+        const cost = upgradeCost(item);
+        if (state.balance < cost) {
+            showToast("Недостаточно денег для улучшения.");
+            return;
+        }
+
+        state.balance -= cost;
+        state.levels[id] = level + 1;
+
+        addHistory(
+            (id === "branch" ? "Открыт филиал: " : "Улучшение: ") + item.name,
+            -cost,
+            "expense"
+        );
+
+        state.chart.push(state.balance);
+        state.chart = state.chart.slice(-30);
+        saveState();
+        render();
+        showToast("Успешно приобретено: " + item.name);
+    }
+
+    function collectIncome() {
+        const income = dailyIncome();
+        state.balance += income;
+        state.totalEarned += income;
+        state.day += 1;
+
+        addHistory("Доход за игровой день", income, "income");
+        state.chart.push(state.balance);
+        state.chart = state.chart.slice(-30);
+
+        saveState();
+        render();
+        showToast("Получен доход: " + money(income));
+    }
+
+    function renderInvestments() {
+        $("investmentCards").innerHTML = INVESTMENTS.map(item => {
+            const level = state.levels[item.id] || 0;
+            const cost = investmentCost(item);
+            const full = level >= item.max;
+            const progress = Math.min(100, level / item.max * 100);
+
+            return `
+                <article class="panel card">
+                    <div class="card-icon">${item.icon}</div>
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <div class="card-price money">${full ? "МАКСИМУМ" : money(cost)}</div>
+                    <div class="card-meta">+${money(item.income)} за день за уровень</div>
+                    <div class="label" style="margin-top:13px">Уровень ${level} / ${item.max}</div>
+                    <div class="progress"><span style="width:${progress}%"></span></div>
+                    <button class="btn btn-primary btn-full" data-buy-invest="${item.id}" ${full || state.balance < cost ? "disabled" : ""}>
+                        ${full ? "Максимальный уровень" : "Инвестировать"}
+                    </button>
+                </article>`;
+        }).join("");
+    }
+
+    function renderUpgrades() {
+        $("upgradeCards").innerHTML = UPGRADES.map(item => {
+            const level = state.levels[item.id] || 0;
+            const cost = upgradeCost(item);
+            const full = level >= item.max;
+            const progress = Math.min(100, level / item.max * 100);
+
+            let effect = "";
+            if (item.id === "renovation") effect = "+15% ко всему доходу за уровень";
+            if (item.id === "staff") effect = "+10% ко всему доходу за уровень";
+            if (item.id === "branch") effect = "+15 000 сум базового дохода за день";
+
+            return `
+                <article class="panel card">
+                    <div class="card-icon">${item.icon}</div>
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <div class="card-price money">${full ? "МАКСИМУМ" : money(cost)}</div>
+                    <div class="card-meta">${effect}</div>
+                    <div class="label" style="margin-top:13px">Уровень ${level} / ${item.max}</div>
+                    <div class="progress"><span style="width:${progress}%"></span></div>
+                    <button class="btn btn-primary btn-full" data-buy-upgrade="${item.id}" ${full || state.balance < cost ? "disabled" : ""}>
+                        ${full ? "Максимальный уровень" : "Купить улучшение"}
+                    </button>
+                </article>`;
+        }).join("");
+    }
+
+    function renderHistory() {
+        const list = $("transactions");
+        const empty = $("emptyHistory");
+
+        if (!state.history.length) {
+            list.innerHTML = "";
+            empty.style.display = "block";
+            return;
+        }
+
+        empty.style.display = "none";
+
+        list.innerHTML = state.history.slice(0, 12).map(item => {
+            const positive = item.amount >= 0;
+            return `
+                <div class="row-item">
+                    <div>
+                        <strong>${escapeHTML(item.title)}</strong>
+                        <small>День ${item.day} · ${escapeHTML(item.date || "")}</small>
+                    </div>
+                    <div class="amount ${positive ? "positive" : "negative"}">
+                        ${positive ? "+" : "−"}${money(Math.abs(item.amount))}
+                    </div>
+                </div>`;
+        }).join("");
+    }
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+    function drawChart() {
+        const canvas = $("balanceChart");
+        const ctx = canvas.getContext("2d");
+        const rect = canvas.getBoundingClientRect();
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+        canvas.height = Math.max(1, Math.floor(220 * ratio));
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        const width = rect.width;
+        const height = 220;
+        ctx.clearRect(0, 0, width, height);
+
+        const values = state.chart.length ? state.chart : [START_BALANCE];
+        const padding = { left: 8, right: 8, top: 15, bottom: 22 };
+        const chartW = width - padding.left - padding.right;
+        const chartH = height - padding.top - padding.bottom;
+        const minVal = Math.min(...values);
+        const maxVal = Math.max(...values);
+        const range = maxVal - minVal || Math.max(maxVal * 0.1, 1);
+
+        ctx.strokeStyle = "#ffffff10";
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 4; i++) {
+            const y = padding.top + chartH * i / 3;
+            ctx.beginPath();
+            ctx.moveTo(padding.left, y);
+            ctx.lineTo(width - padding.right, y);
+            ctx.stroke();
+        }
+
+        const points = values.map((value, i) => ({
+            x: padding.left + (values.length === 1 ? chartW / 2 : i / (values.length - 1) * chartW),
+            y: padding.top + chartH - ((value - minVal) / range) * chartH
+        }));
+
+        if (points.length > 0) {
+            const gradient = ctx.createLinearGradient(0, padding.top, 0, height);
+            gradient.addColorStop(0, "rgba(255,138,0,.30)");
+            gradient.addColorStop(1, "rgba(255,138,0,0)");
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, height - padding.bottom);
+            points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.lineTo(points[points.length - 1].x, height - padding.bottom);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            ctx.beginPath();
+            points.forEach((p, i) => {
+                if (i === 0) ctx.moveTo(p.x, p.y);
+                else ctx.lineTo(p.x, p.y);
+            });
+            ctx.strokeStyle = "#ff9a1f";
+            ctx.lineWidth = 3;
+            ctx.lineJoin = "round";
+            ctx.stroke();
+
+            const last = points[points.length - 1];
+            ctx.beginPath();
+            ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = "#ffb347";
+            ctx.fill();
+        }
+
+        ctx.fillStyle = "#9ba2b1";
+        ctx.font = "11px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText(money(maxVal), 8, 12);
+        ctx.textAlign = "right";
+        ctx.fillText(money(minVal), width - 8, height - 4);
+    }
+
+    function render() {
+        $("balance").textContent = money(state.balance);
+        $("dailyIncome").textContent = money(dailyIncome());
+        $("totalEarned").textContent = money(state.totalEarned);
+        $("branches").textContent = 1 + (state.levels.branch || 0);
+        $("level").textContent = restaurantLevel();
+
+        $("marketingLevel").textContent = state.levels.marketing || 0;
+        $("equipmentLevel").textContent = state.levels.equipment || 0;
+        $("deliveryLevel").textContent = state.levels.delivery || 0;
+        $("loyaltyLevel").textContent = state.levels.loyalty || 0;
+
+        renderInvestments();
+        renderUpgrades();
+        renderHistory();
+        drawChart();
+    }
+
+    function exportCSV() {
+        if (!state.history.length) {
+            showToast("Пока нечего экспортировать.");
+            return;
+        }
+
+        const rows = [["Дата", "Игровой день", "Операция", "Сумма"]];
+        state.history.slice().reverse().forEach(item => {
+            rows.push([item.date || "", item.day, item.title, item.amount]);
+        });
+
+        const csv = "\uFEFF" + rows.map(row =>
+            row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(";")
+        ).join("\r\n");
+
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "cravecraft-investments.csv";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showToast("История операций экспортирована.");
+    }
+
+    function resetGame() {
+        const confirmed = confirm(
+            "Начать заново? Баланс станет 100 000 сум, а прогресс этого симулятора будет удалён."
+        );
+        if (!confirmed) return;
+
+        state = initialState();
+        saveState();
+        render();
+        showToast("Новая игра началась! Баланс: 100 000 сум.");
+    }
+
+    $("collectBtn").addEventListener("click", collectIncome);
+    $("investQuickBtn").addEventListener("click", () => {
+        $("investments").scrollIntoView({ behavior: "smooth" });
+    });
+    $("saveBtn").addEventListener("click", () => {
+        saveState();
+        showToast("Прогресс сохранён!");
+    });
+    $("resetBtn").addEventListener("click", resetGame);
+    $("exportBtn").addEventListener("click", exportCSV);
+
+    $("investmentCards").addEventListener("click", event => {
+        const button = event.target.closest("[data-buy-invest]");
+        if (button) buyInvestment(button.dataset.buyInvest);
+    });
+
+    $("upgradeCards").addEventListener("click", event => {
+        const button = event.target.closest("[data-buy-upgrade]");
+        if (button) buyUpgrade(button.dataset.buyUpgrade);
+    });
+
+    window.addEventListener("resize", drawChart);
+
+    render();
+})();
+</script>
+</body>
+</html>

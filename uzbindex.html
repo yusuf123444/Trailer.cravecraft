@@ -1,0 +1,3679 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVECRAFT — Fast Food & Grill</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .orange-text {
+            background: linear-gradient(90deg, #f4510b, #ff8a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal {
+            animation: modalOpen .22s ease;
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: scale(.94) translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .dynamic-text {
+            transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .dynamic-text-up {
+            opacity: 0;
+            transform: translateY(-110%);
+        }
+
+        .dynamic-text-down {
+            opacity: 0;
+            transform: translateY(110%);
+        }
+
+        .dynamic-text-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dynamic-style-1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .dynamic-style-2 {
+            font-family: Georgia, "Times New Roman", serif;
+            letter-spacing: -2px;
+        }
+
+        .dynamic-style-3 {
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+            letter-spacing: -1px;
+        }
+
+        .dynamic-style-4 {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-style: italic;
+            letter-spacing: -3px;
+        }
+
+        .dynamic-style-5 {
+            font-family: "Courier New", monospace;
+            letter-spacing: -4px;
+        }
+
+        .hero-dynamic-area {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .menu-dynamic-area {
+            height: 105px;
+            overflow: hidden;
+        }
+
+        .services-dynamic-area {
+            height: 55px;
+            overflow: hidden;
+        }
+
+        .story-dynamic-area {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .contact-dynamic-area {
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .model-switch {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .model-photo,
+        .model-3d {
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .model-photo.hidden-3d,
+        .model-3d.hidden-3d {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+
+        .sketchfab-frame {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .model-back-btn {
+            position: absolute;
+            z-index: 20;
+            left: 12px;
+            bottom: 12px;
+            border: 0;
+            border-radius: 10px;
+            background: rgba(0,0,0,.78);
+            color: white;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+
+        .model-back-btn:hover {
+            background: #f4510b;
+        }
+
+        .dish-visual {
+            position: relative;
+        }
+
+        .dish-3d {
+            display: none;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #111;
+        }
+
+        .dish-3d iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .dish-modal-3d-active .dish-photo,
+        .dish-modal-3d-active .dish-info {
+            display: none;
+        }
+
+        .dish-modal-3d-active .dish-3d {
+            display: block;
+        }
+
+        .dish-3d-button {
+            width: 100%;
+            margin-top: 12px;
+            border-radius: 12px;
+            background: #151923;
+            color: white;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .dish-3d-button:hover {
+            background: #f4510b;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f7f7f6] text-[#151923]">
+
+    <!-- HEADER -->
+
+    <header class="sticky top-0 z-50 h-[80px] border-b border-black/10 bg-white/95 backdrop-blur-xl">
+        <div class="mx-auto flex h-full max-w-[1450px] items-center justify-between px-8">
+
+            <a href="index.html" class="text-[23px] font-black tracking-tight">
+                CRAVE<span class="text-orange-500">CRAFT</span>
+            </a>
+
+            <nav class="hidden items-center gap-8 md:flex">
+                <a href="index.html" class="font-bold text-orange-500">Bosh sahifa</a>
+                <a href="uzbmenu.html" class="font-semibold transition hover:text-orange-500">Menyu</a>
+                <a href="services.html" class="font-semibold transition hover:text-orange-500">Xizmatlar</a>
+                <a href="about.html" class="font-semibold transition hover:text-orange-500">Biz haqimizda</a>
+                <a href="contacts.html" class="font-semibold transition hover:text-orange-500">Aloqa</a>
+
+                  <a
+                href="investments.html"
+                class="font-semibold transition hover:text-orange-500">
+
+                Инвестиции
+
+            </a>
+                
+<!-- CRAVECRAFT SOUND BUTTON -->
+<button id="ccSoundButton" type="button"
+        aria-label="Включить музыку"
+        title="Включить / выключить музыку"
+        style="position:relative; width:28px; height:28px; min-width:28px;
+               display:inline-flex; align-items:center; justify-content:center;
+               padding:0; border:1px solid rgba(255,156,0,.5);
+               border-radius:50%; background:#151923; color:#ff9c00;
+               cursor:pointer; flex-shrink:0;">
+
+    <svg id="ccSoundIcon" viewBox="0 0 24 24" width="15" height="15"
+         fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path d="M19 5a10 10 0 0 1 0 14"/>
+    </svg>
+</button>
+
+<audio id="ccLofiMusic" loop preload="auto">
+    <source src="cravecraft-lofi.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(() => {
+    const button = document.getElementById("ccSoundButton");
+    const audio = document.getElementById("ccLofiMusic");
+
+    if (!button || !audio) return;
+
+    audio.volume = 0.35;
+    audio.muted = sessionStorage.getItem("ccLofiMuted") === "true";
+
+    function updateIcon() {
+        const muted = audio.muted;
+
+        button.setAttribute(
+            "aria-label",
+            muted ? "Включить музыку" : "Выключить музыку"
+        );
+
+        button.style.color = muted ? "#9ca3af" : "#ff9c00";
+
+        button.innerHTML = muted
+            ? `<svg viewBox="0 0 24 24" width="15" height="15"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                 <line x1="17" y1="9" x2="22" y2="14"/>
+                 <line x1="22" y1="9" x2="17" y2="14"/>
+               </svg>`
+            : `<svg viewBox="0 0 24 24" width="15" height="15"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                 <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+                 <path d="M19 5a10 10 0 0 1 0 14"/>
+               </svg>`;
+    }
+
+    button.addEventListener("click", async () => {
+        if (audio.paused) {
+            audio.muted = false;
+            try {
+                await audio.play();
+            } catch (error) {
+                updateIcon();
+                return;
+            }
+        } else {
+            audio.muted = !audio.muted;
+        }
+
+        sessionStorage.setItem("ccLofiMuted", String(audio.muted));
+        updateIcon();
+    });
+
+    updateIcon();
+})();
+</script>
+<!-- END SOUND BUTTON -->
+
+            </nav>
+
+            <!-- LANGUAGE MENU -->
+
+            <div id="ccLang" style="position:relative;display:inline-block;font-family:inherit;z-index:99999;">
+                <button id="ccLangToggle" type="button" aria-expanded="false" style="
+                    display:flex;align-items:center;justify-content:space-between;
+                    gap:14px;padding:11px 16px;min-width:155px;
+                    background:#151923;color:#ffffff;border:1px solid #343a46;
+                    border-radius:12px;font-size:14px;font-weight:700;
+                    cursor:pointer;transition:all .2s ease;">
+                    <span id="ccLangCurrent">🌐 Til</span>
+                    <span id="ccLangArrow" style="color:#ff9c00;">⌄</span>
+                </button>
+
+                <div id="ccLangOptions" style="
+                    position:absolute;top:calc(100% + 8px);left:0;right:0;
+                    padding:6px;background:#151923;border:1px solid #343a46;
+                    border-radius:12px;box-shadow:0 12px 35px rgba(0,0,0,.35);
+                    opacity:0;visibility:hidden;transform:translateY(-8px);
+                    transition:opacity .2s ease, transform .2s ease, visibility .2s ease;">
+
+                    <a href="index.html" class="cc-lang-option">🇷🇺 Rus tili</a>
+                    <a href="uzbindex.html" class="cc-lang-option">🇺🇿 O‘zbek tili</a>
+                    <a href="engindex.html" class="cc-lang-option">🇬🇧 Ingliz tili</a>
+                </div>
+            </div>
+
+            <style>
+                #ccLangToggle:hover,
+                #ccLangToggle:focus-visible,
+                #ccLang.cc-lang-open #ccLangToggle {
+                    border-color:#ff9c00 !important;
+                    color:#ff9c00 !important;
+                    box-shadow:0 0 16px rgba(255,156,0,.15);
+                    outline:none;
+                }
+
+                #ccLang.cc-lang-open #ccLangOptions {
+                    opacity:1 !important;
+                    visibility:visible !important;
+                    transform:translateY(0) !important;
+                }
+
+                #ccLang.cc-lang-open #ccLangArrow {
+                    display:inline-block;
+                    transform:rotate(180deg);
+                }
+
+                .cc-lang-option {
+                    display:block;
+                    padding:11px 10px;
+                    border-radius:8px;
+                    color:#ffffff !important;
+                    background:transparent;
+                    font-size:13px;
+                    font-weight:600;
+                    text-decoration:none !important;
+                    white-space:nowrap;
+                    transition:background .2s ease, color .2s ease, padding-left .2s ease;
+                }
+
+                .cc-lang-option:hover,
+                .cc-lang-option:focus-visible {
+                    background:rgba(255,156,0,.12) !important;
+                    color:#ff9c00 !important;
+                    padding-left:15px;
+                    outline:none;
+                }
+
+                #ccLangArrow {
+                    transition:transform .2s ease;
+                }
+            </style>
+
+            <script>
+                (() => {
+                    const lang = document.getElementById("ccLang");
+                    const toggle = document.getElementById("ccLangToggle");
+
+                    if (!lang || !toggle || lang.dataset.ready) return;
+                    lang.dataset.ready = "true";
+
+                    toggle.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        const isOpen = lang.classList.toggle("cc-lang-open");
+                        toggle.setAttribute("aria-expanded", String(isOpen));
+                    });
+
+                    document.addEventListener("click", (event) => {
+                        if (!lang.contains(event.target)) {
+                            lang.classList.remove("cc-lang-open");
+                            toggle.setAttribute("aria-expanded", "false");
+                        }
+                    });
+
+                    document.addEventListener("keydown", (event) => {
+                        if (event.key === "Escape") {
+                            lang.classList.remove("cc-lang-open");
+                            toggle.setAttribute("aria-expanded", "false");
+                        }
+                    });
+                })();
+            </script>
+
+            <button onclick="openModal('loginModal')"
+                class="rounded-xl bg-orange-500 px-6 py-3 text-sm font-black text-white transition hover:scale-105 hover:bg-orange-600">
+                Kirish
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+
+    <section class="min-h-[100vh] bg-[#fbfaf8] pt-[72px] mt-[-50px]">
+        <div class="mx-auto grid min-h-[calc(100vh-72px)] max-w-[1450px] items-center gap-12 px-5 py-20 lg:grid-cols-2">
+
+            <div>
+                <div class="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-50 px-4 py-2 text-[14px] font-bold text-orange-600">
+                    <span class="h-2 w-2 rounded-full bg-orange-500"></span>
+                    Mazali taomlar · 30 daqiqada yetkazib berish
+                </div>
+
+                <div class="hero-dynamic-area max-w-[650px]" onclick="changeDynamicText('heroDynamicText')">
+                    <h2 id="heroDynamicText"
+                        class="dynamic-text dynamic-style-1 dynamic-text-show text-[48px] font-black leading-[.94] tracking-[-3px] md:text-[65px]">
+                        Haqiqiy ta’m
+                        <br>
+                        <span class="orange-text">Shirali burgerning</span>
+                        <br>
+                        ochiq olovda pishirilgani
+                    </h2>
+                </div>
+
+                <p class="mt-7 max-w-[550px] text-[15px] leading-6 text-gray-500">
+                    100% yangi mahsulotlardan tayyorlangan marmar mol go‘shti,
+                    maxfiy retseptlar asosidagi uy souslari, yumshoq briosh noni
+                    va tillarang gazaklar — barchasi eng yuqori sifatda.
+                </p>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="menu.html"
+                        class="rounded-xl bg-orange-500 px-7 py-4 text-[14px] font-bold text-white shadow-[0_10px_30px_rgba(255,90,0,.2)] transition hover:-translate-y-1">
+                        Menyuni ko‘rish →
+                    </a>
+
+                    <button onclick="openModal('cartModal')"
+                        class="rounded-xl border border-gray-200 bg-white px-7 py-4 text-[14px] font-bold">
+                        🛒 Buyurtmam (<span id="heroCartCount">0</span>)
+                    </button>
+                </div>
+
+                <div class="mt-9 flex flex-wrap gap-7 border-t border-gray-200 pt-6">
+                    <div class="flex items-center gap-2">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400 text-[12px] font-bold text-white">
+                            15K
+                        </div>
+                        <div>
+                            <p class="text-[13px] font-black">15 000 dan ortiq</p>
+                            <p class="text-[12px] text-gray-400">Mamnun mijozlar</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-500">✓</span>
+                        <div>
+                            <p class="text-[13px] font-bold">Bepul yetkazib berish</p>
+                            <p class="text-[12px] text-gray-400">99 000 so‘mdan yuqori buyurtmalarga</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HERO 3D -->
+
+            <div class="relative">
+                <div class="absolute -inset-6 rounded-[35px] bg-orange-200/30 blur-[50px]"></div>
+
+                <div class="relative h-[450px] overflow-hidden rounded-[22px] border-[5px] border-white shadow-[0_25px_60px_rgba(0,0,0,.15)]">
+                    <div id="heroPhoto" class="model-photo h-full">
+                        <img
+                            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=85"
+                            alt="Shirali burger"
+                            onclick="toggleHero3D()"
+                            class="h-full w-full cursor-pointer object-cover">
+
+                        <button onclick="toggleHero3D()"
+                            class="absolute bottom-5 left-5 rounded-xl bg-black/75 px-4 py-3 text-[12px] font-bold text-white backdrop-blur-md transition hover:bg-orange-500">
+                            🧊 3D ko‘rinishda ko‘rish
+                        </button>
+
+                        <div class="absolute bottom-5 right-5 flex items-center justify-between rounded-2xl bg-white/95 p-4 shadow-xl">
+                            <div>
+                                <p class="text-[12px] font-bold text-gray-400">HAFTANING ENG MASHHUR TAOMI</p>
+                                <p class="text-[13px] font-black">Ikki karra dudlangan bekon</p>
+                                <p class="text-[13px] text-gray-400">54 000 so‘m</p>
+                            </div>
+                            <div class="ml-5 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50">🔥</div>
+                        </div>
+                    </div>
+
+                    <div id="hero3D" class="model-3d hidden-3d h-full bg-black">
+                        <iframe class="sketchfab-frame" title="Burger" frameborder="0" allowfullscreen
+                            allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                            execution-while-out-of-viewport execution-while-not-rendered web-share
+                            src="https://sketchfab.com/models/6fb7c9aa48ff42e08aae418223140117/embed"></iframe>
+
+                        <button onclick="toggleHero3D()" class="model-back-btn">← Rasmga qaytish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENYU -->
+
+    <section class="min-h-[100vh] border-t border-gray-200 bg-white px-5 py-24">
+        <div class="mx-auto max-w-[1450px]">
+            <div class="text-center">
+                <span class="rounded-full bg-orange-50 px-4 py-2 text-[12px] font-black uppercase text-orange-500">
+                    Bizning menyu
+                </span>
+
+                <div class="menu-dynamic-area mt-5" onclick="changeDynamicText('menuDynamicText')">
+                    <h2 id="menuDynamicText"
+                        class="dynamic-text dynamic-style-1 dynamic-text-show text-[36px] font-black leading-none md:text-[45px]">
+                        Burgerlardan salqin
+                        <br>
+                        <span class="orange-text">ichimliklargacha</span>
+                    </h2>
+                </div>
+
+                <p class="mx-auto mt-5 max-w-[600px] text-[14px] leading-5 text-gray-400">
+                    Har bir taom buyurtma asosida tayyorlanadi.
+                    Sevimli taomlaringizni tanlang va savatga qo‘shing.
+                </p>
+            </div>
+
+            <div class="mt-9 flex flex-wrap justify-center gap-2">
+                <button class="rounded-lg bg-orange-500 px-5 py-3 text-[13px] font-bold text-white">🍔 Barcha taomlar</button>
+                <a href="menu.html" class="rounded-lg border border-gray-200 px-5 py-3 text-[13px] font-bold">Burgerlar</a>
+                <a href="menu.html" class="rounded-lg border border-gray-200 px-5 py-3 text-[13px] font-bold">Kartoshka fri</a>
+                <a href="menu.html" class="rounded-lg border border-gray-200 px-5 py-3 text-[13px] font-bold">Naggets va qanotlar</a>
+                <a href="menu.html" class="rounded-lg border border-gray-200 px-5 py-3 text-[13px] font-bold">Ichimliklar</a>
+            </div>
+
+            <!-- Taom kartochkalari -->
+
+            <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+                <!-- BURGER -->
+
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="relative h-[220px]">
+                        <div id="burgerCardPhoto" class="model-photo h-full">
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85"
+                                class="h-full w-full cursor-pointer object-cover" alt="Burger" onclick="toggleBurgerCard3D()">
+
+                            <button onclick="toggleBurgerCard3D()"
+                                class="absolute bottom-3 left-3 rounded-lg bg-black/75 px-3 py-2 text-[11px] font-bold text-white backdrop-blur-md">🧊 3D</button>
+
+                            <span class="absolute left-3 top-3 rounded-md bg-orange-500 px-3 py-1 text-[11px] font-bold text-white">GRILDA</span>
+                            <button class="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white">♡</button>
+                        </div>
+
+                        <div id="burgerCard3D" class="model-3d hidden-3d h-full bg-black">
+                            <iframe class="sketchfab-frame" title="BigMac" frameborder="0" allowfullscreen
+                                allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                                execution-while-out-of-viewport execution-while-not-rendered web-share
+                                src="https://sketchfab.com/models/807a47ff7cae492c8a09e2b3101db241/embed"></iframe>
+                            <button onclick="toggleBurgerCard3D()" class="model-back-btn">← Rasm</button>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <span class="rounded bg-orange-50 px-2 py-1 text-[11px] font-bold text-orange-500">HAFTANING ENG MASHHUR TAOMI</span>
+                        <h3 class="mt-3 text-[14px] font-black">Ikki karra dudlangan chizburger</h3>
+                        <p class="mt-2 text-[13px] leading-4 text-gray-400">Ikkita shirali mol go‘shti kotleti, bekon va eritilgan pishloq.</p>
+
+                        <div class="mt-5 flex items-center justify-between">
+                            <p class="text-[18px] font-black">50 000 so‘m</p>
+                            <button onclick="openDish('burgerModal')" class="rounded-lg bg-orange-500 px-4 py-3 text-[12px] font-bold text-white">+ Savatga qo‘shish</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FRIES -->
+
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="relative h-[220px]">
+                        <div id="friesCardPhoto" class="model-photo h-full">
+                            <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"
+                                class="h-full w-full cursor-pointer object-cover" alt="Kartoshka fri" onclick="toggleFriesCard3D()">
+
+                            <button onclick="toggleFriesCard3D()" class="absolute bottom-3 left-3 rounded-lg bg-black/75 px-3 py-2 text-[11px] font-bold text-white backdrop-blur-md">🧊 3D</button>
+                            <span class="absolute left-3 top-3 rounded-md bg-orange-500 px-3 py-1 text-[11px] font-bold text-white">GAZAK</span>
+                            <button class="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white">♡</button>
+                        </div>
+
+                        <div id="friesCard3D" class="model-3d hidden-3d h-full bg-black">
+                            <iframe class="sketchfab-frame" title="Kartoshka fri" frameborder="0" allowfullscreen
+                                allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                                execution-while-out-of-viewport execution-while-not-rendered web-share
+                                src="https://sketchfab.com/models/c00390a24a3a4c7184fba339c4b13ca6/embed"></iframe>
+                            <button onclick="toggleFriesCard3D()" class="model-back-btn">← Rasm</button>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <span class="rounded bg-orange-50 px-2 py-1 text-[11px] font-bold text-orange-500">MASHHUR</span>
+                        <h3 class="mt-3 text-[14px] font-black">Maxsus kartoshka fri</h3>
+                        <p class="mt-2 text-[13px] leading-4 text-gray-400">Qarsildoq tillarang kartoshka fri va maxsus sarimsoqli sous.</p>
+
+                        <div class="mt-5 flex items-center justify-between">
+                            <p class="text-[18px] font-black">45 000 so‘m</p>
+                            <button onclick="openDish('friesModal')" class="rounded-lg bg-orange-500 px-4 py-3 text-[12px] font-bold text-white">+ Savatga qo‘shish</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NUGGETS -->
+
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="relative h-[220px]">
+                        <div id="nuggetsCardPhoto" class="model-photo h-full">
+                            <img src="./Background (1).png" class="h-full w-full cursor-pointer object-cover"
+                                alt="Tovuq naggetlari" onclick="toggleNuggetsCard3D()">
+
+                            <button onclick="toggleNuggetsCard3D()" class="absolute bottom-3 left-3 rounded-lg bg-black/75 px-3 py-2 text-[11px] font-bold text-white backdrop-blur-md">🧊 3D</button>
+                            <span class="absolute left-3 top-3 rounded-md bg-orange-500 px-3 py-1 text-[11px] font-bold text-white">TOVUQ</span>
+                            <button class="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white">♡</button>
+                        </div>
+
+                        <div id="nuggetsCard3D" class="model-3d hidden-3d h-full bg-black">
+                            <iframe class="sketchfab-frame" title="Tovuq" frameborder="0" allowfullscreen
+                                allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                                execution-while-out-of-viewport execution-while-not-rendered web-share
+                                src="https://sketchfab.com/models/adae9027cf8143afba558c8ebfb44ac9/embed"></iframe>
+                            <button onclick="toggleNuggetsCard3D()" class="model-back-btn">← Rasm</button>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <span class="rounded bg-green-50 px-2 py-1 text-[11px] font-bold text-green-600">YANGI MAHSULOTLAR</span>
+                        <h3 class="mt-3 text-[14px] font-black">Qarsildoq naggetlar</h3>
+                        <p class="mt-2 text-[13px] leading-4 text-gray-400">Ikkita maxsus sous bilan tortiladigan qarsildoq tovuq bo‘laklari.</p>
+
+                        <div class="mt-5 flex items-center justify-between">
+                            <p class="text-[18px] font-black">65 000 so‘m</p>
+                            <button onclick="openDish('nuggetsModal')" class="rounded-lg bg-orange-500 px-4 py-3 text-[12px] font-bold text-white">+ Savatga qo‘shish</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DRINK -->
+
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="relative h-[220px]">
+                        <div id="drinkCardPhoto" class="model-photo h-full">
+                            <img src="./Крафтовый лимонад и кола со льдом.png"
+                                class="h-full w-full cursor-pointer object-cover" alt="Limonad" onclick="toggleDrinkCard3D()">
+
+                            <button onclick="toggleDrinkCard3D()" class="absolute bottom-3 left-3 rounded-lg bg-black/75 px-3 py-2 text-[11px] font-bold text-white backdrop-blur-md">🧊 3D</button>
+                            <span class="absolute left-3 top-3 rounded-md bg-sky-500 px-3 py-1 text-[11px] font-bold text-white">MUZDEK ICHIMLIKLAR</span>
+                            <button class="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white">♡</button>
+                        </div>
+
+                        <div id="drinkCard3D" class="model-3d hidden-3d h-full bg-black">
+                            <iframe class="sketchfab-frame" title="Limonad" frameborder="0" allowfullscreen
+                                allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                                execution-while-out-of-viewport execution-while-not-rendered web-share
+                                src="https://sketchfab.com/models/785bfba600ed449195b8bcd36af01394/embed"></iframe>
+                            <button onclick="toggleDrinkCard3D()" class="model-back-btn">← Rasm</button>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <span class="rounded bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-500">MUZDEK</span>
+                        <h3 class="mt-3 text-[14px] font-black">Maxsus limonad</h3>
+                        <p class="mt-2 text-[13px] leading-4 text-gray-400">Tabiiy sitrusli limonad, muz va yangi yalpiz.</p>
+
+                        <div class="mt-5 flex items-center justify-between">
+                            <p class="text-[18px] font-black">35 000 so‘m</p>
+                            <button onclick="openDish('drinkModal')" class="rounded-lg bg-orange-500 px-4 py-3 text-[12px] font-bold text-white">+ Savatga qo‘shish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="menu.html" class="inline-block rounded-xl border border-gray-200 px-8 py-4 text-[14px] font-bold transition hover:border-orange-500 hover:text-orange-500">
+                    To‘liq menyuni ko‘rish →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- XIZMATLAR -->
+
+    <section class="min-h-[100vh] bg-[#f7f7f6] px-5 py-24">
+        <div class="mx-auto max-w-[1450px]">
+            <div class="text-center">
+                <span class="rounded-full bg-orange-50 px-4 py-2 text-[12px] font-black uppercase text-orange-500">
+                    Bizning xizmatlar
+                </span>
+
+                <div class="services-dynamic-area mt-5" onclick="changeDynamicText('servicesDynamicText')">
+                    <h2 id="servicesDynamicText" class="dynamic-text dynamic-style-1 dynamic-text-show text-[36px] font-black">
+                        Tez, yangi va zamonaviy
+                    </h2>
+                </div>
+
+                <p class="mt-3 text-[14px] text-gray-400">
+                    Sizga qulay bo‘lishi uchun hamma narsa o‘ylab chiqilgan.
+                </p>
+            </div>
+
+            <div class="mt-12 grid gap-5 md:grid-cols-3">
+                <div class="rounded-2xl border border-gray-200 bg-white p-7 transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50 text-xl">⚡</div>
+                    <h3 class="text-[14px] font-black">30 daqiqada tezkor yetkazib berish</h3>
+                    <p class="mt-3 text-[13px] leading-5 text-gray-400">
+                        Issiq kartoshka fri, yangi non va grilda pishirilgan taomlar eshigingizgacha yetkaziladi.
+                    </p>
+                </div>
+
+                <div class="rounded-2xl border border-gray-200 bg-white p-7 transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-50 text-xl">🚗</div>
+                    <h3 class="text-[14px] font-black">Mashina orqali olib ketish</h3>
+                    <p class="mt-3 text-[13px] leading-5 text-gray-400">
+                        Onlayn buyurtma bering va navbatda kutmasdan tayyor buyurtmangizni olib keting.
+                    </p>
+                </div>
+
+                <div class="rounded-2xl border border-gray-200 bg-white p-7 transition hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-xl">🥬</div>
+                    <h3 class="text-[14px] font-black">Sifatli masalliqlar</h3>
+                    <p class="mt-3 text-[13px] leading-5 text-gray-400">
+                        Sinchiklab tanlangan masalliqlar, yangi sabzavotlar va o‘zimizning maxsus retseptlarimiz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 grid overflow-hidden rounded-[25px] bg-[#1c1b1a] lg:grid-cols-2">
+                <div class="p-10 text-white lg:p-14">
+                    <span class="rounded-full bg-orange-500/10 px-4 py-2 text-[12px] font-bold text-orange-500">CRAVECRAFT</span>
+
+                    <div class="story-dynamic-area mt-6" onclick="changeDynamicText('storyDynamicText')">
+                        <h3 id="storyDynamicText" class="dynamic-text dynamic-style-1 dynamic-text-show text-[38px] font-black leading-none">
+                            Biz shunchaki tez tayyorlanadigan taomlar tayyorlamaymiz.
+                            <br>
+                            Biz taomga bo‘lgan
+                            <span class="text-orange-500">haqiqiy muhabbatni yaratamiz.</span>
+                        </h3>
+                    </div>
+
+                    <p class="mt-6 text-[14px] leading-6 text-gray-400">
+                        Tez tayyorlanadigan taom ham ajoyib restorandagi taom kabi sifatli va mazali bo‘lishi kerak.
+                    </p>
+
+                    <div class="mt-9 grid grid-cols-3 gap-5">
+                        <div>
+                            <p class="text-[27px] font-black text-orange-500">12+</p>
+                            <p class="text-[11px] text-gray-500">RESTORANLAR</p>
+                        </div>
+                        <div>
+                            <p class="text-[27px] font-black text-yellow-400">100%</p>
+                            <p class="text-[11px] text-gray-500">SIFAT</p>
+                        </div>
+                        <div>
+                            <p class="text-[27px] font-black text-green-400">4.9</p>
+                            <p class="text-[11px] text-gray-500">REYTING</p>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1626082927389-6cd09c1a4d9f?auto=format&fit=crop&w=1200&q=85"
+                    alt="CRAVECRAFT taomi" class="h-full min-h-[400px] w-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- ALOQA -->
+
+    <section class="min-h-[100vh] bg-white px-5 py-24">
+        <div class="mx-auto grid max-w-[1450px] gap-12 lg:grid-cols-2">
+            <div>
+                <span class="rounded-full bg-orange-50 px-4 py-2 text-[12px] font-black uppercase text-orange-500">
+                    Biz bilan bog‘laning
+                </span>
+
+                <div class="contact-dynamic-area mt-6 max-w-[550px]" onclick="changeDynamicText('contactDynamicText')">
+                    <h2 id="contactDynamicText" class="dynamic-text dynamic-style-1 dynamic-text-show text-[40px] font-black leading-none">
+                        Bizga tashrif buyuring
+                        <br>
+                        yoki yetkazib berishga buyurtma bering
+                    </h2>
+                </div>
+
+                <p class="mt-5 max-w-[500px] text-[14px] leading-5 text-gray-400">
+                    Buyurtma, yetkazib berish yoki hamkorlik haqida savollaringiz bormi? Bizga xabar yuboring.
+                </p>
+
+                <div class="mt-8 rounded-2xl border border-gray-200 p-5">
+                    <div class="flex gap-4">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50">📍</div>
+                        <div>
+                            <p class="text-[11px] font-bold text-gray-400">ASOSIY RESTORAN</p>
+                            <p class="mt-1 text-[14px] font-bold">Toshkent shahri, Amir Temur ko‘chasi, 15</p>
+                            <p class="mt-1 text-[11px] text-gray-400">Har kuni, 10:00 – 02:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 rounded-2xl border border-gray-200 p-5">
+                    <div class="flex gap-4">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-50">📞</div>
+                        <div>
+                            <p class="text-[11px] font-bold text-gray-400">YETKAZIB BERISH TELEFONI</p>
+                            <p class="mt-1 text-[14px] font-bold">+998 71 555 35 37</p>
+                            <p class="mt-1 text-[11px] text-gray-400">Har kuni xizmatda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-[22px] border border-gray-200 p-7 shadow-sm">
+                <h3 class="text-[18px] font-black">Bizga xabar yuboring</h3>
+
+                <form onsubmit="sendMessage(event)" class="mt-7 space-y-4">
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <input required type="text" placeholder="Ismingiz"
+                            class="h-11 rounded-lg border border-gray-200 px-4 text-[13px] outline-none focus:border-orange-500">
+
+                        <input required type="tel" placeholder="+998 90 000 00 00"
+                            class="h-11 rounded-lg border border-gray-200 px-4 text-[13px] outline-none focus:border-orange-500">
+                    </div>
+
+                    <select class="h-11 w-full rounded-lg border border-gray-200 px-4 text-[13px] outline-none focus:border-orange-500">
+                        <option>Buyurtma haqida fikr</option>
+                        <option>Yetkazib berish</option>
+                        <option>Hamkorlik</option>
+                        <option>Boshqa</option>
+                    </select>
+
+                    <textarea required placeholder="Xabaringiz..."
+                        class="h-[130px] w-full resize-none rounded-lg border border-gray-200 p-4 text-[13px] outline-none focus:border-orange-500"></textarea>
+
+                    <label class="flex items-center gap-2 text-[11px] text-gray-400">
+                        <input required type="checkbox">
+                        Shaxsiy ma’lumotlarimni qayta ishlashga roziman
+                    </label>
+
+                    <button class="w-full rounded-lg bg-orange-500 py-4 text-[13px] font-bold text-white hover:bg-orange-600">
+                        Xabar yuborish
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="bg-[#171615] px-5 py-14 text-white">
+        <div class="mx-auto flex max-w-[1450px] flex-col justify-between gap-10 md:flex-row">
+            <div>
+                <h2 class="text-[20px] font-black">CRAVE<span class="text-orange-500">CRAFT</span></h2>
+                <p class="mt-3 max-w-[280px] text-[13px] leading-5 text-gray-500">
+                    Yangi avlod fast-fud va gril taomlari. Murosasiz haqiqiy ta’m.
+                </p>
+            </div>
+
+            <div>
+                <p class="text-[14px] font-bold">Sahifalar</p>
+                <div class="mt-4 space-y-2">
+                    <a href="index.html" class="block text-[13px] text-gray-500 hover:text-orange-500">Bosh sahifa</a>
+                    <a href="menu.html" class="block text-[13px] text-gray-500 hover:text-orange-500">Menyu</a>
+                    <a href="services.html" class="block text-[13px] text-gray-500 hover:text-orange-500">Xizmatlar</a>
+                    <a href="about.html" class="block text-[13px] text-gray-500 hover:text-orange-500">Biz haqimizda</a>
+                    <a href="contacts.html" class="block text-[13px] text-gray-500 hover:text-orange-500">Aloqa</a>
+                </div>
+            </div>
+
+            <div>
+                <p class="text-[14px] font-bold">Aloqa</p>
+                <div class="mt-4 space-y-2 text-[13px] text-gray-500">
+                    <p>📍 Toshkent, Amir Temur ko‘chasi, 15</p>
+                    <p>📞 +998 71 555 35 37</p>
+                    <p>✉ hello@cravecraft.uz</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-auto mt-10 max-w-[1450px] border-t border-white/10 pt-5 text-center text-[11px] text-gray-600">
+            © 2026 CRAVECRAFT. Barcha huquqlar himoyalangan.
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+
+    <div id="loginModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/75 p-1">
+        <div class="modal relative h-[800px] w-full max-w-[500px] rounded-[34px] bg-white px-10 py-11 shadow-2xl">
+            <button onclick="closeModal('loginModal')"
+                class="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f2f4] text-[25px] font-light text-[#151923] transition hover:bg-gray-200">×</button>
+
+            <div class="flex justify-center">
+                <div class="flex h-[74px] w-[74px] items-center justify-center rounded-[20px] bg-[#ff6900] text-[38px]">👤</div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <h2 class="text-[34px] font-black tracking-[-1.5px] text-[#151923]">CRAVECRAFT akkauntiga kirish</h2>
+                <p class="mt-2 text-[15px] text-[#7b8498]">Buyurtmalaringizni saqlash uchun tizimga kiring</p>
+            </div>
+
+            <form onsubmit="login(event)" class="mt-10">
+                <label class="block">
+                    <span class="text-[15px] font-bold text-[#151923]">Gmail / Elektron pochta</span>
+                    <input required type="email" value="khasanovyusuf01@gmail.com" placeholder="Gmail yoki elektron pochtangizni kiriting"
+                        class="mt-3 h-[61px] w-full rounded-[14px] border border-[#dce1ea] bg-[#e8f0ff] px-5 text-[17px] text-[#151923] outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20">
+                </label>
+
+                <label class="mt-6 block">
+                    <span class="text-[15px] font-bold text-[#151923]">Parol</span>
+                    <input required type="password" value="1234567890" placeholder="Parolni kiriting"
+                        class="mt-3 h-[61px] w-full rounded-[14px] border border-[#dce1ea] bg-[#e8f0ff] px-5 text-[17px] text-[#151923] outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20">
+                </label>
+
+                <div class="mt-4 text-right">
+                    <button type="button" onclick="forgotPassword()" class="text-[15px] font-bold text-orange-500 transition hover:text-orange-600">
+                        Parolni unutdingizmi?
+                    </button>
+                </div>
+
+                <button type="submit" class="mt-7 h-[63px] w-full rounded-[15px] bg-[#ff6900] text-[17px] font-black text-white transition hover:bg-[#f45d00] hover:shadow-[0_10px_30px_rgba(255,105,0,.25)]">
+                    Kirish
+                </button>
+
+                <div class="my-8 flex items-center gap-4">
+                    <div class="h-px flex-1 bg-[#dfe2e8]"></div>
+                    <span class="text-[14px] font-semibold text-[#a0a8b8]">yoki</span>
+                    <div class="h-px flex-1 bg-[#dfe2e8]"></div>
+                </div>
+
+                <button type="button" onclick="googleLogin()"
+                    class="flex h-[69px] w-full items-center justify-center gap-3 rounded-[14px] border border-[#dfe2e8] bg-white text-[17px] font-bold text-[#151923] transition hover:bg-gray-50">
+                    <span class="text-[24px] font-black">G</span>
+                    <span>Google orqali davom etish</span>
+                </button>
+
+                <p class="mt-8 text-center text-[13px] leading-5 text-[#9ba5b7]">
+                    Davom etish orqali siz CRAVECRAFT foydalanish shartlariga rozilik bildirasiz.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- CART MODAL -->
+
+    <div id="cartModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-5">
+        <div class="modal w-full max-w-[500px] rounded-[24px] bg-white p-7 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[26px] font-black">🛒 Buyurtmam</h2>
+                <button onclick="closeModal('cartModal')" class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-xl">×</button>
+            </div>
+
+            <div id="cartContent" class="mt-6">
+                <div class="rounded-xl bg-gray-50 p-6 text-center">
+                    <div class="text-4xl">🛒</div>
+                    <p class="mt-3 font-bold">Savatingiz bo‘sh</p>
+                    <p class="mt-1 text-sm text-gray-400">Mazali taomlardan birini qo‘shing!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BURGER MODAL -->
+
+    <div id="burgerModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-5">
+        <div class="modal w-full max-w-[500px] rounded-[24px] bg-white p-7 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[24px] font-black">Ikki karra dudlangan chizburger</h2>
+                <button onclick="closeModal('burgerModal')" class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-xl">×</button>
+            </div>
+
+            <div id="burgerModalVisual" class="dish-visual mt-5">
+                <div class="dish-photo">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85"
+                        class="h-[230px] w-full cursor-pointer rounded-2xl object-cover" alt="Burger" onclick="toggleBurgerModal3D()">
+                    <button onclick="toggleBurgerModal3D()" class="dish-3d-button">🧊 3D ko‘rinishda ko‘rish</button>
+                </div>
+
+                <div class="dish-3d">
+                    <iframe title="Realistik burger" frameborder="0" allowfullscreen
+                        allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                        execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/models/1f3e42de8f7a4b308067ad92147e269a/embed"></iframe>
+                    <button onclick="toggleBurgerModal3D()" class="model-back-btn">← Rasmga qaytish</button>
+                </div>
+            </div>
+
+            <div class="dish-info">
+                <p class="mt-5 text-sm leading-6 text-gray-500">
+                    Ikkita shirali mol go‘shti kotleti, qarsildoq bekon, eritilgan pishloq va CRAVECRAFT maxsus sousi.
+                </p>
+                <div class="mt-6 flex items-center justify-between">
+                    <span class="text-[22px] font-black">50 000 so‘m</span>
+                    <button onclick="addToCart('Double Smoke Cheeseburger', 50000); closeModal('burgerModal')"
+                        class="rounded-xl bg-orange-500 px-6 py-3 font-bold text-white">Savatga qo‘shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FRIES MODAL -->
+
+    <div id="friesModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-5">
+        <div class="modal w-full max-w-[500px] rounded-[24px] bg-white p-7 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[24px] font-black">Maxsus kartoshka fri</h2>
+                <button onclick="closeModal('friesModal')" class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-xl">×</button>
+            </div>
+
+            <div id="friesModalVisual" class="dish-visual mt-5">
+                <div class="dish-photo">
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"
+                        class="h-[230px] w-full cursor-pointer rounded-2xl object-cover" alt="Kartoshka fri" onclick="toggleFriesModal3D()">
+                    <button onclick="toggleFriesModal3D()" class="dish-3d-button">🧊 3D ko‘rinishda ko‘rish</button>
+                </div>
+
+                <div class="dish-3d">
+                    <iframe title="Kartoshka fri" frameborder="0" allowfullscreen
+                        allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                        execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/models/c00390a24a3a4c7184fba339c4b13ca6/embed"></iframe>
+                    <button onclick="toggleFriesModal3D()" class="model-back-btn">← Rasmga qaytish</button>
+                </div>
+            </div>
+
+            <div class="dish-info">
+                <p class="mt-5 text-sm leading-6 text-gray-500">Qarsildoq tillarang kartoshka fri va maxsus sarimsoqli sous.</p>
+                <div class="mt-6 flex items-center justify-between">
+                    <span class="text-[22px] font-black">45 000 so‘m</span>
+                    <button onclick="addToCart('Artisan Fries', 45000); closeModal('friesModal')"
+                        class="rounded-xl bg-orange-500 px-6 py-3 font-bold text-white">Savatga qo‘shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NUGGETS MODAL -->
+
+    <div id="nuggetsModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-5">
+        <div class="modal w-full max-w-[500px] rounded-[24px] bg-white p-7 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[24px] font-black">Qarsildoq naggetlar</h2>
+                <button onclick="closeModal('nuggetsModal')" class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-xl">×</button>
+            </div>
+
+            <div id="nuggetsModalVisual" class="dish-visual mt-5">
+                <div class="dish-photo">
+                    <img src="./Background (1).png" class="h-[230px] w-full cursor-pointer rounded-2xl object-cover"
+                        alt="Naggetlar" onclick="toggleNuggetsModal3D()">
+                    <button onclick="toggleNuggetsModal3D()" class="dish-3d-button">🧊 3D ko‘rinishda ko‘rish</button>
+                </div>
+
+                <div class="dish-3d">
+                    <iframe title="Tovuq naggetlari" frameborder="0" allowfullscreen
+                        allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                        execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/models/adae9027cf8143afba558c8ebfb44ac9/embed"></iframe>
+                    <button onclick="toggleNuggetsModal3D()" class="model-back-btn">← Rasmga qaytish</button>
+                </div>
+            </div>
+
+            <div class="dish-info">
+                <p class="mt-5 text-sm leading-6 text-gray-500">Ikkita maxsus sous bilan tortiladigan qarsildoq tovuq bo‘laklari.</p>
+                <div class="mt-6 flex items-center justify-between">
+                    <span class="text-[22px] font-black">65 000 so‘m</span>
+                    <button onclick="addToCart('Crunch Nuggets', 65000); closeModal('nuggetsModal')"
+                        class="rounded-xl bg-orange-500 px-6 py-3 font-bold text-white">Savatga qo‘shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRINK MODAL -->
+
+    <div id="drinkModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-5">
+        <div class="modal w-full max-w-[500px] rounded-[24px] bg-white p-7 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[24px] font-black">Maxsus limonad</h2>
+                <button onclick="closeModal('drinkModal')" class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-xl">×</button>
+            </div>
+
+            <div id="drinkModalVisual" class="dish-visual mt-5">
+                <div class="dish-photo">
+                    <img src="./Крафтовый лимонад и кола со льдом.png"
+                        class="h-[230px] w-full cursor-pointer rounded-2xl object-cover" alt="Limonad" onclick="toggleDrinkModal3D()">
+                    <button onclick="toggleDrinkModal3D()" class="dish-3d-button">🧊 3D ko‘rinishda ko‘rish</button>
+                </div>
+
+                <div class="dish-3d">
+                    <iframe title="Limonad" frameborder="0" allowfullscreen
+                        allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                        execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/models/785bfba600ed449195b8bcd36af01394/embed"></iframe>
+                    <button onclick="toggleDrinkModal3D()" class="model-back-btn">← Rasmga qaytish</button>
+                </div>
+            </div>
+
+            <div class="dish-info">
+                <p class="mt-5 text-sm leading-6 text-gray-500">Tabiiy sitrusli limonad, muz va yangi yalpiz.</p>
+                <div class="mt-6 flex items-center justify-between">
+                    <span class="text-[22px] font-black">35 000 so‘m</span>
+                    <button onclick="addToCart('Craft Lemonade', 35000); closeModal('drinkModal')"
+                        class="rounded-xl bg-orange-500 px-6 py-3 font-bold text-white">Savatga qo‘shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        const dynamicTexts = {
+            heroDynamicText: [
+                {
+                    style: "dynamic-style-1",
+                    html: `
+                        Haqiqiy ta’m
+                        <br>
+                        <span class="orange-text">Shirali burgerning</span>
+                        <br>
+                        ochiq olovda pishirilgani
+                    `
+                },
+                {
+                    style: "dynamic-style-2",
+                    html: `
+                        Har bir luqmada
+                        <br>
+                        <span class="orange-text">ko‘proq ta’m</span>
+                        <br>
+                        ortiqcha so‘zlarsiz
+                    `
+                },
+                {
+                    style: "dynamic-style-3",
+                    html: `
+                        Qorningiz ochdimi?
+                        <br>
+                        <span class="orange-text">Unda siz</span>
+                        <br>
+                        aynan kerakli joydasiz
+                    `
+                },
+                {
+                    style: "dynamic-style-4",
+                    html: `
+                        Qizigan gril
+                        <br>
+                        <span class="orange-text">Yangi masalliqlar</span>
+                        <br>
+                        va ajoyib ta’m
+                    `
+                },
+                {
+                    style: "dynamic-style-5",
+                    html: `
+                        CRAVECRAFT
+                        <br>
+                        <span class="orange-text">Bu shunchaki</span>
+                        <br>
+                        tezkor taom emas
+                    `
+                }
+            ],
+
+            menuDynamicText: [
+                {
+                    style: "dynamic-style-1",
+                    html: `
+                        Burgerlardan salqin
+                        <br>
+                        <span class="orange-text">ichimliklargacha</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-2",
+                    html: `
+                        Barcha sevimli taomlaringiz
+                        <br>
+                        <span class="orange-text">bitta menyuda</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-3",
+                    html: `
+                        O‘zingizga mos
+                        <br>
+                        <span class="orange-text">ta’mni tanlang</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-4",
+                    html: `
+                        Issiq taomlar
+                        <br>
+                        <span class="orange-text">Muzdek ichimliklar</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-5",
+                    html: `
+                        CRAVECRAFT MENYUSI
+                        <br>
+                        <span class="orange-text">MUROSASIZ TA’M</span>
+                    `
+                }
+            ],
+
+            servicesDynamicText: [
+                {
+                    style: "dynamic-style-1",
+                    html: `Tez, yangi <br> va zamonaviy`
+                },
+                {
+                    style: "dynamic-style-2",
+                    html: `
+                        Siz uchun
+                        <br>
+                        <span class="orange-text">qulay xizmat</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-3",
+                    html: `
+                        Tezroq.
+                        <br>
+                        <span class="orange-text">Issiqroq.</span>
+                        Osonroq.
+                    `
+                },
+                {
+                    style: "dynamic-style-4",
+                    html: `
+                        Yetkazib berishni
+                        <br>
+                        <span class="orange-text">juda oson qildik</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-5",
+                    html: `
+                        XIZMAT
+                        <br>
+                        <span class="orange-text">ORTIQCHA SO‘ZLARSIZ</span>
+                    `
+                }
+            ],
+
+            storyDynamicText: [
+                {
+                    style: "dynamic-style-1",
+                    html: `
+                        Biz shunchaki tezkor taom tayyorlamaymiz.
+                        <br>
+                        Biz
+                        <span class="text-orange-500">ta’mga muhabbat uyg‘otamiz.</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-2",
+                    html: `
+                        Oddiy tezkor taommi?
+                        <br>
+                        <span class="text-orange-500">CRAVECRAFT’da emas.</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-3",
+                    html: `
+                        Taom doimo
+                        <br>
+                        <span class="text-orange-500">haqiqiy bo‘lishi</span>
+                        kerak.
+                    `
+                },
+                {
+                    style: "dynamic-style-4",
+                    html: `
+                        Oddiy tamaddini
+                        <br>
+                        <span class="text-orange-500">unutilmas taassurotga</span>
+                        aylantiramiz.
+                    `
+                },
+                {
+                    style: "dynamic-style-5",
+                    html: `
+                        CRAVECRAFT
+                        <br>
+                        <span class="text-orange-500">TAOMDAN KO‘PROQ.</span>
+                        <br>
+                        BU O‘ZIGA XOS USLUB.
+                    `
+                }
+            ],
+
+            contactDynamicText: [
+                {
+                    style: "dynamic-style-1",
+                    html: `Bizga tashrif buyuring <br> yoki yetkazib berishga buyurtma bering`
+                },
+                {
+                    style: "dynamic-style-2",
+                    html: `
+                        Biz har doim
+                        <br>
+                        <span class="orange-text">xabarlaringizni kutamiz</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-3",
+                    html: `
+                        Savollaringiz bormi?
+                        <br>
+                        <span class="orange-text">Biz shu yerdamiz!</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-4",
+                    html: `
+                        Buyurtma bermoqchimisiz?
+                        <br>
+                        <span class="orange-text">Bizga yozing</span>
+                    `
+                },
+                {
+                    style: "dynamic-style-5",
+                    html: `
+                        CRAVECRAFT
+                        <br>
+                        <span class="orange-text">DOIMO ALOQADAMIZ</span>
+                    `
+                }
+            ]
+        };
+
+        const dynamicIndexes = {
+            heroDynamicText: 0,
+            menuDynamicText: 0,
+            servicesDynamicText: 0,
+            storyDynamicText: 0,
+            contactDynamicText: 0
+        };
+
+        const dynamicChanging = {};
+
+        function changeDynamicText(id) {
+            if (dynamicChanging[id]) {
+                return;
+            }
+
+            const textElement = document.getElementById(id);
+            const texts = dynamicTexts[id];
+
+            if (!textElement || !texts) {
+                return;
+            }
+
+            dynamicChanging[id] = true;
+
+            textElement.classList.remove(
+                "dynamic-text-show",
+                "dynamic-text-down"
+            );
+
+            textElement.classList.add("dynamic-text-up");
+
+            setTimeout(function() {
+                dynamicIndexes[id]++;
+
+                if (dynamicIndexes[id] >= texts.length) {
+                    dynamicIndexes[id] = 0;
+                }
+
+                const next = texts[dynamicIndexes[id]];
+                textElement.innerHTML = next.html;
+
+                textElement.classList.remove(
+                    "dynamic-style-1",
+                    "dynamic-style-2",
+                    "dynamic-style-3",
+                    "dynamic-style-4",
+                    "dynamic-style-5"
+                );
+
+                textElement.classList.add(next.style);
+                textElement.classList.remove("dynamic-text-up");
+                textElement.classList.add("dynamic-text-down");
+
+                setTimeout(function() {
+                    textElement.classList.remove("dynamic-text-down");
+                    textElement.classList.add("dynamic-text-show");
+
+                    setTimeout(function() {
+                        dynamicChanging[id] = false;
+                    }, 700);
+                }, 50);
+            }, 700);
+        }
+    </script>
+
+<style>
+  #ccSecretEgg {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+  }
+
+  #ccSecretEgg.active {
+    display: flex;
+  }
+
+  #ccSecretVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  #ccSecretEggClose {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 1000000;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ff8a00;
+    border-radius: 50%;
+    background: rgba(21, 25, 35, 0.85);
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  #ccSecretEggClose:hover {
+    background: #ff8a00;
+    transform: scale(1.08);
+  }
+</style>
+
+<div id="ccSecretEgg" aria-hidden="true">
+  <video
+    id="ccSecretVideo"
+    src="./secret-video.mp4"
+    playsinline
+    preload="auto">
+  </video>
+
+  <audio
+    id="ccSecretAudio"
+    src="./secret-sound.mp3"
+    preload="auto">
+  </audio>
+
+  <button
+    id="ccSecretEggClose"
+    type="button"
+    aria-label="Закрыть пасхалку">×</button>
+</div>
+
+<script>
+(() => {
+  const egg = document.getElementById("ccSecretEgg");
+  const video = document.getElementById("ccSecretVideo");
+  const audio = document.getElementById("ccSecretAudio");
+  const closeButton = document.getElementById("ccSecretEggClose");
+
+  // Физические клавиши C → R → A → V → E.
+  // Работает независимо от языка раскладки.
+  const secretKeys = [
+    "KeyC",
+    "KeyR",
+    "KeyA",
+    "KeyV",
+    "KeyE"
+  ];
+
+  let progress = 0;
+  let isOpen = false;
+
+  async function openEasterEgg() {
+    if (isOpen) return;
+
+    isOpen = true;
+    egg.classList.add("active");
+    egg.setAttribute("aria-hidden", "false");
+
+    video.currentTime = 0;
+    audio.currentTime = 0;
+
+    // Видео и музыка запускаются вместе.
+    const videoPromise = video.play();
+    const audioPromise = audio.play();
+
+    try {
+      await egg.requestFullscreen?.();
+    } catch (error) {
+      // Если полноэкранный режим недоступен,
+      // оверлей всё равно занимает весь экран окна.
+    }
+
+    const results = await Promise.allSettled([
+      videoPromise,
+      audioPromise
+    ]);
+
+    results.forEach((result) => {
+      if (result.status === "rejected") {
+        console.warn(
+          "Проверь путь к файлу или поддержку воспроизведения:",
+          result.reason
+        );
+      }
+    });
+  }
+
+  function closeEasterEgg() {
+    video.pause();
+    audio.pause();
+
+    video.currentTime = 0;
+    audio.currentTime = 0;
+
+    egg.classList.remove("active");
+    egg.setAttribute("aria-hidden", "true");
+
+    isOpen = false;
+    progress = 0;
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      if (isOpen) closeEasterEgg();
+      return;
+    }
+
+    if (
+      isOpen ||
+      event.repeat ||
+      event.ctrlKey ||
+      event.altKey ||
+      event.metaKey
+    ) return;
+
+    const target = event.target;
+
+    if (
+      target instanceof HTMLElement &&
+      (
+        target.isContentEditable ||
+        ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)
+      )
+    ) {
+      progress = 0;
+      return;
+    }
+
+    if (event.code === secretKeys[progress]) {
+      progress++;
+
+      if (progress === secretKeys.length) {
+        progress = 0;
+        openEasterEgg();
+      }
+    } else {
+      progress = event.code === secretKeys[0] ? 1 : 0;
+    }
+  });
+
+  closeButton.addEventListener("click", closeEasterEgg);
+
+  // Если видео закончилось — закрываем пасхалку.
+  video.addEventListener("ended", closeEasterEgg);
+
+  // Если файл не найден, выводим понятную ошибку в консоль.
+  video.addEventListener("error", () => {
+    console.error(
+      "CRAVECRAFT: не найден secret-video.mp4. Проверь имя и папку файла."
+    );
+  });
+
+  audio.addEventListener("error", () => {
+    console.error(
+      "CRAVECRAFT: не найден secret-sound.mp3. Проверь имя и папку файла."
+    );
+  });
+})();
+</script>
+
+<!-- ========== END CRAVECRAFT SECRET EASTER EGG ========== -->
+
+<style>
+#ccSecretRoom,
+#ccSecretRoom * {
+    box-sizing: border-box;
+}
+
+#ccSecretRoom {
+    --cc-orange: #ff7417;
+    --cc-gold: #c69b61;
+    --cc-wood: #4a2919;
+    --cc-wall: #211914;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    color: #eee3d3;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #100c0a;
+    transform: translateX(105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 1s cubic-bezier(.19, 1, .22, 1), visibility 1s;
+    isolation: isolate;
+}
+
+#ccSecretRoom.cc-room-open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#ccSecretRoom button { font: inherit; }
+
+#ccSecretRoom .cc-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    perspective: 1000px;
+    background:
+        radial-gradient(ellipse at 52% 39%, #59402b 0%, transparent 40%),
+        linear-gradient(180deg, #17120f, #34251a 60%, #120e0b);
+}
+
+#ccSecretRoom .cc-ceiling {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 15%;
+    background: linear-gradient(#100d0b, #292019);
+    border-bottom: 5px solid #080706;
+    box-shadow: 0 9px 20px #0008;
+}
+
+#ccSecretRoom .cc-ceiling-light {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    width: 200px;
+    height: 100px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse, #f8c77b30, transparent 70%);
+}
+
+#ccSecretRoom .cc-lamp-chain {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 6%;
+    background: #6e563b;
+}
+
+#ccSecretRoom .cc-lamp {
+    position: absolute;
+    z-index: 8;
+    top: 5%;
+    left: 50%;
+    width: 110px;
+    height: 52px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #a17c49, #392719 65%, #130e09);
+    clip-path: polygon(18% 0, 82% 0, 100% 80%, 0 80%);
+    filter: drop-shadow(0 15px 22px #000);
+}
+
+#ccSecretRoom .cc-lamp::after {
+    content: "";
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: 10px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffdba0;
+    box-shadow: 0 0 20px 8px #e6a64b70;
+}
+
+#ccSecretRoom .cc-light-beam {
+    position: absolute;
+    z-index: 1;
+    top: 9%;
+    left: 50%;
+    width: 52%;
+    height: 70%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #d9a66517, transparent);
+    clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+
+#ccSecretRoom .cc-back-wall {
+    position: absolute;
+    inset: 13% 0 24%;
+    background:
+        repeating-linear-gradient(90deg, transparent 0 150px, #0c090726 151px 155px),
+        repeating-linear-gradient(0deg, transparent 0 92px, #0c09072b 93px 97px),
+        linear-gradient(110deg, #30231b, #493326 50%, #241911);
+    border-top: 6px solid #120d09;
+    border-bottom: 12px solid #160f0b;
+    box-shadow: inset 0 0 100px #0008;
+}
+
+#ccSecretRoom .cc-left-wall {
+    position: absolute;
+    top: 13%;
+    bottom: 24%;
+    left: 0;
+    width: 10%;
+    background: linear-gradient(90deg, #0d0a08, #302117);
+    transform-origin: left;
+    border-right: 4px solid #17100b;
+}
+
+#ccSecretRoom .cc-right-wall {
+    position: absolute;
+    top: 13%;
+    bottom: 24%;
+    right: 0;
+    width: 10%;
+    background: linear-gradient(270deg, #0b0806, #302117);
+    border-left: 4px solid #17100b;
+}
+
+#ccSecretRoom .cc-floor {
+    position: absolute;
+    inset: 76% 0 0;
+    background:
+        repeating-linear-gradient(90deg, transparent 0 12.3%, #08060575 12.4% 12.7%),
+        repeating-linear-gradient(0deg, #0000 0 48px, #0b0705 49px 52px),
+        linear-gradient(#38251a, #170e09);
+    transform-origin: top;
+    box-shadow: inset 0 30px 45px #0009;
+}
+
+#ccSecretRoom .cc-rug {
+    position: absolute;
+    z-index: 2;
+    left: 20%;
+    bottom: -12%;
+    width: 62%;
+    height: 34%;
+    transform: perspective(450px) rotateX(12deg);
+    background: repeating-linear-gradient(45deg, #2d1712 0 8px, #3d2117 9px 11px);
+    border: 8px double #8d643c;
+    box-shadow: 0 0 0 3px #1b100b, 0 10px 35px #0008;
+}
+
+#ccSecretRoom .cc-rug::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 2px solid #b48a55;
+    opacity: .65;
+}
+
+#ccSecretRoom .cc-brand {
+    position: absolute;
+    z-index: 5;
+    top: 16%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 9px 25px;
+    background: linear-gradient(#241a13, #100c09);
+    border: 1px solid #80603b;
+    box-shadow: 0 8px 20px #0006;
+    color: #f7eee4;
+    font-size: clamp(12px, 1.2vw, 19px);
+    font-weight: 900;
+    letter-spacing: .28em;
+    white-space: nowrap;
+}
+
+#ccSecretRoom .cc-brand span { color: var(--cc-orange); }
+
+#ccSecretRoom .cc-picture {
+    position: absolute;
+    z-index: 4;
+    top: 25%;
+    width: clamp(95px, 12vw, 190px);
+    height: clamp(115px, 17vw, 245px);
+    padding: 8px;
+    background: linear-gradient(135deg, #c9a36d, #654226 35%, #b38a53 60%, #3b2516);
+    border: 2px solid #17100b;
+    box-shadow: 0 10px 20px #0009, inset 0 0 0 2px #dfba7a55;
+}
+
+#ccSecretRoom .cc-picture-left {
+    left: 4%;
+    transform: rotate(-2deg);
+}
+
+#ccSecretRoom .cc-picture-right {
+    right: 4%;
+    transform: rotate(2deg);
+}
+
+#ccSecretRoom .cc-picture-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 3px solid #20140d;
+    background:
+        radial-gradient(ellipse at 50% 28%, #b28b5b 0 8%, transparent 9%),
+        linear-gradient(180deg, #53412e, #201a14 70%);
+}
+
+#ccSecretRoom .cc-picture-inner::before {
+    content: "";
+    position: absolute;
+    left: 25%;
+    bottom: -5%;
+    width: 50%;
+    height: 65%;
+    background: linear-gradient(90deg, #090909, #3a3026, #0a0908);
+    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%);
+}
+
+#ccSecretRoom .cc-picture-inner::after {
+    content: "";
+    position: absolute;
+    top: 7%;
+    left: 8%;
+    right: 8%;
+    height: 3px;
+    background: #d5b07b;
+    box-shadow: 0 9px #d5b07b33;
+}
+
+#ccSecretRoom .cc-picture-label {
+    position: absolute;
+    z-index: 2;
+    bottom: 8%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: .13em;
+    color: #e7c38b;
+}
+
+#ccSecretRoom .cc-small-picture {
+    position: absolute;
+    z-index: 4;
+    top: 47%;
+    left: 12%;
+    width: clamp(65px, 7vw, 110px);
+    height: clamp(70px, 9vw, 130px);
+    padding: 5px;
+    background: #a47a45;
+    box-shadow: 0 8px 15px #0008;
+    transform: rotate(2deg);
+}
+
+#ccSecretRoom .cc-small-picture > div {
+    height: 100%;
+    background:
+        radial-gradient(circle at 50% 35%, #b8a07a 0 10%, transparent 11%),
+        linear-gradient(120deg, #201914, #756047, #17110c);
+    border: 3px solid #2c1c10;
+}
+
+#ccSecretRoom .cc-bookcase {
+    position: absolute;
+    z-index: 5;
+    top: 23%;
+    left: 1.5%;
+    width: clamp(110px, 15vw, 225px);
+    height: 52%;
+    background: linear-gradient(90deg, #251309, #744326 18%, #492815 80%, #1c1009);
+    border: 5px solid #1c1009;
+    box-shadow: 12px 12px 25px #0009, inset 0 0 0 2px #9b6a3b66;
+}
+
+#ccSecretRoom .cc-bookcase-top {
+    height: 12px;
+    background: linear-gradient(#bd8a51, #4b2c16);
+    box-shadow: 0 4px 8px #0008;
+}
+
+#ccSecretRoom .cc-shelf {
+    position: relative;
+    height: 25%;
+    border-bottom: 9px solid #291609;
+    background: linear-gradient(90deg, #28170d, #4d2b17, #1b1009);
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    padding: 6px 5px 0;
+}
+
+#ccSecretRoom .cc-book {
+    flex: 1;
+    max-width: 23px;
+    height: 70%;
+    border-radius: 2px 2px 0 0;
+    border: 1px solid #140d08;
+    box-shadow: inset 2px 0 #ffffff16;
+    background: #593626;
+}
+
+#ccSecretRoom .cc-book:nth-child(2n) {
+    height: 82%;
+    background: #2c3025;
+}
+
+#ccSecretRoom .cc-book:nth-child(3n) {
+    height: 63%;
+    background: #75442b;
+}
+
+#ccSecretRoom .cc-book:nth-child(4n) { height: 76%; background: #927045; }
+#ccSecretRoom .cc-book:nth-child(5n) { background: #282a31; }
+
+#ccSecretRoom .cc-shelf-object {
+    position: absolute;
+    right: 12%;
+    bottom: 15%;
+    width: 25px;
+    height: 30px;
+    background: linear-gradient(90deg, #765630, #c49a5d, #624324);
+    border-radius: 5px 5px 2px 2px;
+    box-shadow: 0 0 8px #0008;
+}
+
+#ccSecretRoom .cc-board {
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    right: 15%;
+    width: clamp(125px, 15vw, 220px);
+    height: clamp(90px, 12vw, 165px);
+    background: #33271c;
+    border: 6px solid #6d4a2b;
+    box-shadow: 0 10px 20px #0008;
+}
+
+#ccSecretRoom .cc-board::before {
+    content: "CONFIDENTIAL";
+    position: absolute;
+    top: 7px;
+    left: 8px;
+    right: 8px;
+    padding: 4px;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: .2em;
+    color: #e4bd81;
+    border-bottom: 1px solid #8b6742;
+}
+
+#ccSecretRoom .cc-note {
+    position: absolute;
+    width: 28%;
+    height: 39%;
+    background: #d3c2a1;
+    color: #3b2b1d;
+    font-size: 7px;
+    padding: 5px 3px;
+    box-shadow: 2px 3px 5px #0006;
+    transform: rotate(-3deg);
+}
+
+#ccSecretRoom .cc-note::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 6px;
+    background: #7d6a51;
+    box-shadow: 0 6px #7d6a51, 0 12px #7d6a51;
+}
+
+#ccSecretRoom .cc-note-one { left: 8%; bottom: 10%; }
+#ccSecretRoom .cc-note-two { left: 38%; bottom: 9%; transform: rotate(4deg); }
+#ccSecretRoom .cc-note-three { right: 7%; bottom: 12%; transform: rotate(-1deg); }
+
+#ccSecretRoom .cc-side-cabinet {
+    position: absolute;
+    z-index: 5;
+    right: 2%;
+    bottom: 22%;
+    width: clamp(105px, 14vw, 205px);
+    height: 24%;
+    background: linear-gradient(90deg, #29170d, #674024 25%, #3e2515 80%, #1b1009);
+    border: 3px solid #170e08;
+    box-shadow: 8px 10px 20px #0009;
+}
+
+#ccSecretRoom .cc-cabinet-top {
+    height: 13px;
+    background: linear-gradient(#bc8951, #503018);
+}
+
+#ccSecretRoom .cc-drawer {
+    height: 28%;
+    margin: 8px 8px 0;
+    background: linear-gradient(90deg, #3b2112, #76502d, #4a2a16);
+    border: 2px solid #24140b;
+    box-shadow: inset 0 2px #ffffff0b;
+}
+
+#ccSecretRoom .cc-drawer::after {
+    content: "";
+    display: block;
+    margin: 8px auto 0;
+    width: 16px;
+    height: 4px;
+    background: #c7a16b;
+    border-radius: 4px;
+}
+
+#ccSecretRoom .cc-vase {
+    position: absolute;
+    z-index: 7;
+    right: 6%;
+    bottom: 45%;
+    width: 34px;
+    height: 48px;
+    border-radius: 35% 35% 45% 45%;
+    background: linear-gradient(90deg, #322016, #987045, #3b2517);
+    box-shadow: 0 5px 10px #0008;
+}
+
+#ccSecretRoom .cc-vase::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    bottom: 37px;
+    width: 3px;
+    height: 48px;
+    background: #3e4b2b;
+    transform: rotate(-13deg);
+    box-shadow: -12px 12px #3e4b2b, 12px 8px #3e4b2b;
+}
+
+#ccSecretRoom .cc-character {
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    bottom: 16%;
+    width: clamp(250px, 31vw, 470px);
+    height: 65%;
+    transform: translateX(-50%);
+}
+
+#ccSecretRoom .cc-head {
+    position: absolute;
+    z-index: 5;
+    top: 8%;
+    left: 50%;
+    width: 35%;
+    height: 34%;
+    transform: translateX(-50%);
+    border-radius: 43% 43% 46% 46%;
+    background:
+        radial-gradient(ellipse at 36% 43%, #d5b184 0 3%, transparent 4%),
+        radial-gradient(ellipse at 65% 43%, #d5b184 0 3%, transparent 4%),
+        linear-gradient(90deg, #8c6042, #d7ad7c 35%, #c3996c 67%, #69442d);
+    box-shadow: inset -12px -5px 18px #4b2d1b55, 0 8px 15px #0007;
+}
+
+#ccSecretRoom .cc-ear {
+    position: absolute;
+    top: 38%;
+    width: 12%;
+    height: 20%;
+    border-radius: 50%;
+    background: #ae8059;
+}
+
+#ccSecretRoom .cc-ear-left { left: -7%; }
+#ccSecretRoom .cc-ear-right { right: -7%; }
+
+#ccSecretRoom .cc-hair {
+    position: absolute;
+    z-index: 6;
+    top: -2%;
+    left: 8%;
+    width: 84%;
+    height: 24%;
+    border-radius: 48% 48% 16% 16%;
+    background: linear-gradient(180deg, #171310, #080706);
+    box-shadow: inset 0 -5px #3c2a1c;
+}
+
+#ccSecretRoom .cc-hat {
+    position: absolute;
+    z-index: 12;
+    top: -13%;
+    left: -7%;
+    width: 114%;
+    height: 21%;
+}
+
+#ccSecretRoom .cc-hat-top {
+    position: absolute;
+    top: 0;
+    left: 23%;
+    width: 54%;
+    height: 75%;
+    border-radius: 48% 48% 10% 10%;
+    background: linear-gradient(90deg, #080706, #302a23 45%, #0b0907);
+    border-bottom: 4px solid #59432c;
+    box-shadow: inset 0 5px #ffffff08;
+}
+
+#ccSecretRoom .cc-hat-brim {
+    position: absolute;
+    bottom: 12%;
+    left: 0;
+    width: 100%;
+    height: 23%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #322a21, #080706);
+    border-bottom: 3px solid #4a3927;
+    box-shadow: 0 5px 12px #0008;
+}
+
+#ccSecretRoom .cc-glasses {
+    position: absolute;
+    z-index: 15;
+    top: 29%;
+    left: 3%;
+    width: 94%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    filter: drop-shadow(0 3px 2px #000);
+}
+
+#ccSecretRoom .cc-lens {
+    position: relative;
+    flex: 1;
+    height: 90%;
+    overflow: hidden;
+    border: 4px solid #090909;
+    border-radius: 7px 7px 12px 12px;
+    background: linear-gradient(135deg, #42403b 0%, #101111 30%, #292a29 55%, #080909 100%);
+    box-shadow: inset 0 0 0 2px #776d5c, inset 0 0 13px #000, 0 0 0 1px #b99b6d;
+}
+
+#ccSecretRoom .cc-lens::before {
+    content: "";
+    position: absolute;
+    top: 8%;
+    left: 12%;
+    width: 65%;
+    height: 17%;
+    transform: rotate(-22deg);
+    background: linear-gradient(90deg, transparent, #fff8, transparent);
+}
+
+#ccSecretRoom .cc-lens::after {
+    content: "";
+    position: absolute;
+    top: 27%;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: #ffffff24;
+}
+
+#ccSecretRoom .cc-bridge {
+    flex: 0 0 7%;
+    height: 5px;
+    background: linear-gradient(#b8a27f, #171411);
+    border: 1px solid #070605;
+}
+
+#ccSecretRoom .cc-glasses-arm {
+    position: absolute;
+    top: 30%;
+    width: 9%;
+    height: 5px;
+    background: #100e0b;
+}
+
+#ccSecretRoom .cc-glasses-arm.left { left: -5%; }
+#ccSecretRoom .cc-glasses-arm.right { right: -5%; }
+
+#ccSecretRoom .cc-nose {
+    position: absolute;
+    z-index: 8;
+    top: 46%;
+    left: 45%;
+    width: 10%;
+    height: 25%;
+    border-right: 3px solid #875a3c;
+    border-bottom: 3px solid #875a3c;
+    border-radius: 0 0 8px 0;
+}
+
+#ccSecretRoom .cc-mouth {
+    position: absolute;
+    z-index: 8;
+    left: 35%;
+    bottom: 13%;
+    width: 30%;
+    height: 3px;
+    border-radius: 50%;
+    background: #573326;
+}
+
+#ccSecretRoom .cc-beard {
+    position: absolute;
+    z-index: 7;
+    bottom: -1%;
+    left: 13%;
+    width: 74%;
+    height: 34%;
+    border-radius: 15% 15% 45% 45%;
+    background: linear-gradient(90deg, #17120f, #35271c, #17120f);
+    clip-path: polygon(0 0, 100% 0, 88% 60%, 65% 100%, 35% 100%, 12% 60%);
+}
+
+#ccSecretRoom .cc-neck {
+    position: absolute;
+    z-index: 3;
+    top: 36%;
+    left: 40%;
+    width: 20%;
+    height: 16%;
+    background: linear-gradient(90deg, #754d33, #c2976a, #795034);
+}
+
+#ccSecretRoom .cc-body {
+    position: absolute;
+    z-index: 4;
+    top: 43%;
+    left: 0;
+    width: 100%;
+    height: 56%;
+    background:
+        linear-gradient(90deg, transparent 48%, #78644c 49%, #17130f 51%, transparent 53%),
+        linear-gradient(100deg, #090909, #282521 24%, #10100f 48%, #302a23 68%, #080807);
+    clip-path: polygon(28% 0, 72% 0, 89% 15%, 100% 100%, 0 100%, 11% 15%);
+    box-shadow: inset 0 0 20px #000;
+}
+
+#ccSecretRoom .cc-shirt {
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    left: 41%;
+    width: 18%;
+    height: 40%;
+    background: linear-gradient(90deg, #bcb5a7, #f1e8d9, #b9b1a1);
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+}
+
+#ccSecretRoom .cc-tie {
+    position: absolute;
+    z-index: 6;
+    top: 44%;
+    left: 45%;
+    width: 10%;
+    height: 45%;
+    background: linear-gradient(90deg, #6e230e, #dc6424, #6e230e);
+    clip-path: polygon(25% 0, 75% 0, 100% 16%, 65% 100%, 35% 100%, 0 16%);
+}
+
+#ccSecretRoom .cc-lapel {
+    position: absolute;
+    z-index: 6;
+    top: 44%;
+    width: 29%;
+    height: 39%;
+    background: linear-gradient(100deg, #090908, #38322a, #11100e);
+    border-bottom: 2px solid #54432f;
+}
+
+#ccSecretRoom .cc-lapel-left {
+    left: 17%;
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 40% 57%);
+}
+
+#ccSecretRoom .cc-lapel-right {
+    right: 17%;
+    clip-path: polygon(0 0, 100% 0, 60% 57%, 25% 100%);
+}
+
+#ccSecretRoom .cc-arm {
+    position: absolute;
+    z-index: 3;
+    top: 48%;
+    width: 23%;
+    height: 47%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #090908, #292722, #090908);
+}
+
+#ccSecretRoom .cc-arm-left { left: 4%; transform: rotate(8deg); }
+#ccSecretRoom .cc-arm-right { right: 4%; transform: rotate(-8deg); }
+
+#ccSecretRoom .cc-hand {
+    position: absolute;
+    z-index: 7;
+    bottom: 2%;
+    width: 16%;
+    height: 13%;
+    border-radius: 40% 40% 35% 35%;
+    background: linear-gradient(90deg, #805539, #d0a078, #805539);
+}
+
+#ccSecretRoom .cc-hand-left { left: 5%; }
+#ccSecretRoom .cc-hand-right { right: 5%; }
+
+#ccSecretRoom .cc-chair-back {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 13%;
+    width: 29%;
+    height: 42%;
+    transform: translateX(-50%);
+    border-radius: 45% 45% 10% 10%;
+    background: linear-gradient(90deg, #17110d, #51331f 25%, #2c1c12 75%, #110b07);
+    border: 7px solid #21150d;
+    box-shadow: 0 10px 25px #0009, inset 0 0 0 3px #9a7044;
+}
+
+#ccSecretRoom .cc-chair-back::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 2px solid #a37b4b;
+    border-radius: 35%;
+    opacity: .6;
+}
+
+#ccSecretRoom .cc-chair-seat {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    bottom: 13%;
+    width: 36%;
+    height: 8%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    background: linear-gradient(#63432b, #20140c);
+    border: 3px solid #100b07;
+}
+
+#ccSecretRoom .cc-desk {
+    position: absolute;
+    z-index: 11;
+    left: 50%;
+    bottom: 4%;
+    width: min(76%, 1050px);
+    height: 21%;
+    transform: translateX(-50%);
+}
+
+#ccSecretRoom .cc-desk-top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 25%;
+    background:
+        repeating-linear-gradient(90deg, transparent 0 110px, #1b1009 111px 114px),
+        linear-gradient(#a16c3c, #57351d 45%, #27160c);
+    border: 4px solid #170d07;
+    border-bottom: 8px solid #170d07;
+    box-shadow: 0 9px 17px #000b, inset 0 3px #d5a36b44;
+}
+
+#ccSecretRoom .cc-desk-front {
+    position: absolute;
+    top: 25%;
+    left: 4%;
+    right: 4%;
+    height: 68%;
+    background: linear-gradient(90deg, #28160c, #704326 15%, #3b2112 50%, #704326 85%, #1d1009);
+    border: 4px solid #170d07;
+    box-shadow: inset 0 5px #c38b4e30;
+}
+
+#ccSecretRoom .cc-desk-drawer {
+    position: absolute;
+    top: 13%;
+    left: 35%;
+    width: 30%;
+    height: 38%;
+    background: linear-gradient(#59351d, #30190c);
+    border: 3px solid #1b1008;
+}
+
+#ccSecretRoom .cc-desk-drawer::after {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    width: 10%;
+    height: 5px;
+    background: #c7a16b;
+}
+
+#ccSecretRoom .cc-paper {
+    position: absolute;
+    z-index: 12;
+    top: -17%;
+    left: 17%;
+    width: 18%;
+    height: 31%;
+    background: #cfc0a3;
+    transform: rotate(-7deg);
+    box-shadow: 2px 4px 5px #0008;
+}
+
+#ccSecretRoom .cc-paper::after {
+    content: "CASE FILE";
+    display: block;
+    margin: 10px 5px;
+    color: #463322;
+    font-size: 9px;
+    font-weight: bold;
+    border-bottom: 1px solid #927c5e;
+    padding-bottom: 5px;
+}
+
+#ccSecretRoom .cc-folder {
+    position: absolute;
+    z-index: 12;
+    top: -22%;
+    right: 20%;
+    width: 21%;
+    height: 36%;
+    transform: rotate(5deg);
+    background: linear-gradient(135deg, #704626, #392114);
+    border: 2px solid #a07848;
+    box-shadow: 2px 5px 8px #0008;
+}
+
+#ccSecretRoom .cc-folder::after {
+    content: "CRAVECRAFT";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #e7bd80;
+    font-size: 8px;
+    letter-spacing: .1em;
+}
+
+#ccSecretRoom .cc-desk-lamp {
+    position: absolute;
+    z-index: 14;
+    top: -65%;
+    right: 7%;
+    width: 95px;
+    height: 90px;
+}
+
+#ccSecretRoom .cc-desk-lamp-base {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 8px;
+    border-radius: 50%;
+    background: #17120c;
+    border: 2px solid #947044;
+}
+
+#ccSecretRoom .cc-desk-lamp-arm {
+    position: absolute;
+    bottom: 5px;
+    left: 48%;
+    width: 5px;
+    height: 57px;
+    background: #87633b;
+    transform: rotate(18deg);
+    transform-origin: bottom;
+}
+
+#ccSecretRoom .cc-desk-lamp-shade {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 65px;
+    height: 32px;
+    background: linear-gradient(#b58b51, #53371c);
+    clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+}
+
+#ccSecretRoom .cc-desk-lamp-glow {
+    position: absolute;
+    top: 20px;
+    right: -70px;
+    width: 170px;
+    height: 120px;
+    background: radial-gradient(ellipse, #ffb84b26, transparent 70%);
+    pointer-events: none;
+}
+
+#ccSecretRoom .cc-prop-case {
+    position: absolute;
+    z-index: 13;
+    top: -16%;
+    left: 43%;
+    width: 120px;
+    height: 45px;
+    transform: rotate(-5deg);
+    background: linear-gradient(#34251a, #17100b);
+    border: 2px solid #7d5a36;
+    border-radius: 4px;
+    box-shadow: 0 5px 9px #0009;
+}
+
+#ccSecretRoom .cc-prop-case::before {
+    content: "FILM PROP";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #d1aa71;
+    font-size: 7px;
+    letter-spacing: .15em;
+}
+
+#ccSecretRoom .cc-prop {
+    position: absolute;
+    z-index: 14;
+    top: 40%;
+    left: 16%;
+    width: 68%;
+    height: 34%;
+    opacity: .98;
+    filter: drop-shadow(0 3px 2px #0009);
+}
+
+#ccSecretRoom .cc-prop-slide {
+    position: absolute;
+    left: 26%;
+    top: 10%;
+    width: 57%;
+    height: 35%;
+    border-radius: 4px 7px 2px 2px;
+    border: 2px solid #34302a;
+    background: linear-gradient(#77736b, #252522 45%, #4d4a43);
+}
+
+#ccSecretRoom .cc-prop-slide::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    right: 7px;
+    height: 3px;
+    background: #aaa69a;
+}
+
+#ccSecretRoom .cc-prop-frame {
+    position: absolute;
+    left: 23%;
+    top: 35%;
+    width: 52%;
+    height: 30%;
+    background: linear-gradient(#57534b, #211f1b);
+    border: 2px solid #171613;
+    border-radius: 3px;
+}
+
+#ccSecretRoom .cc-prop-grip {
+    position: absolute;
+    left: 28%;
+    top: 55%;
+    width: 22%;
+    height: 40%;
+    transform: rotate(15deg);
+    border-radius: 2px 2px 7px 7px;
+    background: repeating-linear-gradient(0deg, #26231e 0 4px, #4b453a 5px 6px);
+    border: 2px solid #171411;
+}
+
+#ccSecretRoom .cc-prop-trigger {
+    position: absolute;
+    left: 48%;
+    top: 48%;
+    width: 13%;
+    height: 15%;
+    border: 2px solid #161411;
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+#ccSecretRoom .cc-vignette {
+    position: absolute;
+    z-index: 30;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, #0009, transparent 20%, transparent 80%, #0009),
+        linear-gradient(0deg, #000b, transparent 28%, transparent 75%, #0007),
+        radial-gradient(ellipse, transparent 35%, #0008 100%);
+}
+
+#ccSecretRoom .cc-room-label {
+    position: absolute;
+    z-index: 40;
+    left: 25px;
+    bottom: 23px;
+    color: #b5a28a;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px #000;
+}
+
+#ccSecretRoom .cc-close {
+    position: absolute;
+    z-index: 100;
+    top: 22px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #b78a53;
+    border-radius: 50%;
+    color: #f1e5d4;
+    background: #100c09d9;
+    font-size: 26px;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+#ccSecretRoom .cc-close:hover {
+    background: #b95017;
+    transform: rotate(90deg);
+}
+
+#ccSecretRoom .cc-secret-hint {
+    position: absolute;
+    z-index: 40;
+    right: 25px;
+    bottom: 24px;
+    color: #b5a28a;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-align: right;
+}
+
+#ccSecretRoom .cc-character,
+#ccSecretRoom .cc-bookcase,
+#ccSecretRoom .cc-picture,
+#ccSecretRoom .cc-desk {
+    transition: filter .7s ease;
+}
+
+#ccSecretRoom.cc-room-open .cc-character {
+    filter: drop-shadow(0 0 22px #c18a4a16);
+}
+
+@media (max-width: 700px) {
+    #ccSecretRoom .cc-bookcase {
+        left: 1%;
+        width: 23%;
+        height: 37%;
+        top: 29%;
+    }
+
+    #ccSecretRoom .cc-picture {
+        width: 20%;
+        height: 16%;
+        top: 19%;
+    }
+
+    #ccSecretRoom .cc-picture-left { left: 25%; }
+    #ccSecretRoom .cc-picture-right { right: 2%; }
+    #ccSecretRoom .cc-small-picture { display: none; }
+
+    #ccSecretRoom .cc-board {
+        right: 3%;
+        top: 39%;
+        width: 24%;
+        height: 12%;
+    }
+
+    #ccSecretRoom .cc-character {
+        width: 64%;
+        height: 57%;
+        bottom: 17%;
+    }
+
+    #ccSecretRoom .cc-desk {
+        width: 94%;
+        height: 17%;
+        bottom: 5%;
+    }
+
+    #ccSecretRoom .cc-side-cabinet {
+        right: 0;
+        width: 23%;
+        height: 19%;
+        bottom: 22%;
+    }
+
+    #ccSecretRoom .cc-prop-case { width: 85px; }
+
+    #ccSecretRoom .cc-secret-hint {
+        bottom: 8px;
+        right: 10px;
+        font-size: 8px;
+    }
+
+    #ccSecretRoom .cc-room-label {
+        left: 10px;
+        bottom: 8px;
+        font-size: 8px;
+    }
+
+    #ccSecretRoom .cc-brand {
+        top: 15%;
+        letter-spacing: .15em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #ccSecretRoom { transition: none; }
+}
+</style>
+
+<div id="ccSecretRoom" aria-hidden="true">
+    <div class="cc-scene">
+        <div class="cc-ceiling"></div>
+        <div class="cc-ceiling-light"></div>
+        <div class="cc-lamp-chain"></div>
+        <div class="cc-lamp"></div>
+        <div class="cc-light-beam"></div>
+
+        <div class="cc-back-wall"></div>
+        <div class="cc-left-wall"></div>
+        <div class="cc-right-wall"></div>
+        <div class="cc-floor"></div>
+        <div class="cc-rug"></div>
+
+        <div class="cc-brand">CRAVE<span>CRAFT</span> — PRIVATE OFFICE</div>
+
+        <div class="cc-bookcase">
+            <div class="cc-bookcase-top"></div>
+            <div class="cc-shelf">
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+            </div>
+            <div class="cc-shelf">
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <div class="cc-shelf-object"></div>
+            </div>
+            <div class="cc-shelf">
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i><i class="cc-book"></i>
+                <i class="cc-book"></i>
+            </div>
+        </div>
+
+        <div class="cc-picture cc-picture-left">
+            <div class="cc-picture-inner">
+                <div class="cc-picture-label">THE FOUNDER</div>
+            </div>
+        </div>
+
+        <div class="cc-picture cc-picture-right">
+            <div class="cc-picture-inner">
+                <div class="cc-picture-label">THE LEGACY</div>
+            </div>
+        </div>
+
+        <div class="cc-small-picture"><div></div></div>
+
+        <div class="cc-board">
+            <div class="cc-note cc-note-one">FILE 01</div>
+            <div class="cc-note cc-note-two">NOTES</div>
+            <div class="cc-note cc-note-three">ARCHIVE</div>
+        </div>
+
+        <div class="cc-side-cabinet">
+            <div class="cc-cabinet-top"></div>
+            <div class="cc-drawer"></div>
+            <div class="cc-drawer"></div>
+            <div class="cc-drawer"></div>
+        </div>
+
+        <div class="cc-vase"></div>
+        <div class="cc-chair-back"></div>
+
+        <div class="cc-character">
+            <div class="cc-body"></div>
+            <div class="cc-arm cc-arm-left"></div>
+            <div class="cc-arm cc-arm-right"></div>
+            <div class="cc-neck"></div>
+
+            <div class="cc-head">
+                <div class="cc-ear cc-ear-left"></div>
+                <div class="cc-ear cc-ear-right"></div>
+                <div class="cc-hair"></div>
+
+                <div class="cc-hat">
+                    <div class="cc-hat-top"></div>
+                    <div class="cc-hat-brim"></div>
+                </div>
+
+                <div class="cc-glasses">
+                    <div class="cc-glasses-arm left"></div>
+                    <div class="cc-lens"></div>
+                    <div class="cc-bridge"></div>
+                    <div class="cc-lens"></div>
+                    <div class="cc-glasses-arm right"></div>
+                </div>
+
+                <div class="cc-nose"></div>
+                <div class="cc-mouth"></div>
+                <div class="cc-beard"></div>
+            </div>
+
+            <div class="cc-shirt"></div>
+            <div class="cc-tie"></div>
+            <div class="cc-lapel cc-lapel-left"></div>
+            <div class="cc-lapel cc-lapel-right"></div>
+            <div class="cc-hand cc-hand-left"></div>
+            <div class="cc-hand cc-hand-right"></div>
+        </div>
+
+        <div class="cc-chair-seat"></div>
+
+        <div class="cc-desk">
+            <div class="cc-desk-top"></div>
+            <div class="cc-desk-front">
+                <div class="cc-desk-drawer"></div>
+            </div>
+
+            <div class="cc-paper"></div>
+            <div class="cc-folder"></div>
+
+            <div class="cc-desk-lamp">
+                <div class="cc-desk-lamp-base"></div>
+                <div class="cc-desk-lamp-arm"></div>
+                <div class="cc-desk-lamp-shade"></div>
+                <div class="cc-desk-lamp-glow"></div>
+            </div>
+
+            <div class="cc-prop-case" aria-label="Кинематографический реквизит">
+                <div class="cc-prop">
+                    <div class="cc-prop-slide"></div>
+                    <div class="cc-prop-frame"></div>
+                    <div class="cc-prop-grip"></div>
+                    <div class="cc-prop-trigger"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cc-vignette"></div>
+        <div class="cc-room-label">CRAVECRAFT · RESTRICTED AREA</div>
+        <div class="cc-secret-hint">SECRET ROOM<br>ESC — CLOSE</div>
+
+        <button class="cc-close" id="ccSecretRoomClose" type="button"
+                aria-label="Закрыть секретную комнату">×</button>
+    </div>
+</div>
+
+<script>
+(() => {
+    const room = document.getElementById("ccSecretRoom");
+    const closeButton = document.getElementById("ccSecretRoomClose");
+
+    if (!room || !closeButton || room.dataset.initialized === "true") return;
+    room.dataset.initialized = "true";
+
+    let sequenceStep = 0;
+    let sequenceTimer = null;
+
+    function openSecretRoom() {
+        room.classList.add("cc-room-open");
+        room.setAttribute("aria-hidden", "false");
+    }
+
+    function closeSecretRoom() {
+        room.classList.remove("cc-room-open");
+        room.setAttribute("aria-hidden", "true");
+    }
+
+    function resetSequence() {
+        sequenceStep = 0;
+        clearTimeout(sequenceTimer);
+        sequenceTimer = null;
+    }
+
+    function isTyping(element) {
+        if (!element) return false;
+        return element.isContentEditable ||
+            ["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName);
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeSecretRoom();
+            resetSequence();
+            return;
+        }
+
+        if (room.classList.contains("cc-room-open")) return;
+        if (event.ctrlKey || event.altKey || event.metaKey) return;
+        if (isTyping(event.target)) return;
+
+        const key = event.key.toLowerCase();
+        const sequence = ["a", "b", "c"];
+
+        if (key === sequence[sequenceStep]) {
+            sequenceStep++;
+            clearTimeout(sequenceTimer);
+            sequenceTimer = setTimeout(resetSequence, 2500);
+
+            if (sequenceStep === sequence.length) {
+                resetSequence();
+                openSecretRoom();
+            }
+        } else {
+            sequenceStep = key === "a" ? 1 : 0;
+            clearTimeout(sequenceTimer);
+
+            if (sequenceStep > 0) {
+                sequenceTimer = setTimeout(resetSequence, 2500);
+            }
+        }
+    });
+
+    closeButton.addEventListener("click", closeSecretRoom);
+})();
+</script>
+
+<!-- ============== CRAVECRAFT SECRET DIALOGUE ============== -->
+
+<style>
+#ccDialogue {
+    position: fixed;
+    z-index: 1000000;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    width: min(720px, 92%);
+    padding: 23px;
+    color: #eee3d3;
+    background: linear-gradient(145deg, #17110df5, #24180ff5);
+    border: 1px solid #9b7044;
+    box-shadow: 0 15px 55px #000b, inset 0 0 25px #0005;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s, visibility .35s;
+}
+
+#ccDialogue.cc-dialogue-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#ccDialogue .cc-dialogue-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #d6a466;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+#ccDialogue .cc-dialogue-status { color: #ff7417; }
+
+#ccDialogue .cc-dialogue-name {
+    margin: 0 0 8px;
+    font-size: clamp(18px, 2vw, 25px);
+    font-weight: 900;
+    letter-spacing: .04em;
+}
+
+#ccDialogue .cc-dialogue-text {
+    min-height: 48px;
+    margin: 0 0 18px;
+    color: #d6c7b3;
+    font-size: clamp(14px, 1.3vw, 17px);
+    line-height: 1.65;
+}
+
+#ccDialogue .cc-dialogue-choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+#ccDialogue .cc-choice {
+    min-height: 49px;
+    padding: 12px 15px;
+    text-align: left;
+    color: #eee3d3;
+    background: linear-gradient(135deg, #322216, #17100b);
+    border: 1px solid #6e4a2b;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .2s;
+}
+
+#ccDialogue .cc-choice:hover {
+    background: linear-gradient(135deg, #613518, #29180d);
+    border-color: #ff7417;
+    transform: translateY(-2px);
+}
+
+#ccDialogue .cc-choice:focus-visible {
+    outline: 2px solid #ff7417;
+    outline-offset: 3px;
+}
+
+#ccDialogue .cc-dialogue-foot {
+    margin-top: 13px;
+    color: #927b60;
+    font-size: 10px;
+    letter-spacing: .12em;
+}
+
+#ccSecretEnding {
+    position: fixed;
+    z-index: 1000001;
+    inset: 0;
+    overflow: hidden;
+    background: #080706;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#ccSecretEnding.cc-ending-active {
+    visibility: visible;
+    pointer-events: auto;
+    animation: ccEndingFadeIn .5s forwards;
+}
+
+#ccSecretEnding .cc-ending-caption {
+    position: absolute;
+    z-index: 5;
+    left: 20px;
+    right: 20px;
+    top: 12%;
+    color: #e8d5bb;
+    text-align: center;
+    font-size: clamp(18px, 3vw, 34px);
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-shadow: 0 3px 18px #000;
+}
+
+#ccSecretEnding .cc-ending-caption span {
+    display: block;
+    margin-top: 14px;
+    color: #ff7417;
+    font-size: 12px;
+    letter-spacing: .25em;
+}
+
+#ccSecretEnding .cc-ketchup {
+    position: absolute;
+    inset: -20%;
+    opacity: 0;
+    transform: scale(.15);
+    background:
+        radial-gradient(ellipse at 50% 50%, #a90913 0 8%, transparent 9%),
+        radial-gradient(ellipse at 40% 40%, #e51b24 0 12%, transparent 13%),
+        radial-gradient(ellipse at 65% 45%, #c40d18 0 14%, transparent 15%),
+        radial-gradient(ellipse at 35% 65%, #d31520 0 17%, transparent 18%),
+        radial-gradient(ellipse at 65% 70%, #a80812 0 13%, transparent 14%),
+        radial-gradient(ellipse at 50% 30%, #ed252a 0 18%, transparent 19%);
+}
+
+#ccSecretEnding.cc-ending-splash .cc-ketchup {
+    animation: ccKetchupSplash .9s ease-out forwards;
+}
+
+#ccSecretEnding .cc-ending-dark {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: #050404;
+    opacity: 0;
+}
+
+#ccSecretEnding.cc-ending-darken .cc-ending-dark {
+    animation: ccEndingDarken 2.2s ease-in forwards;
+}
+
+@keyframes ccEndingFadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes ccKetchupSplash {
+    0% { opacity: 0; transform: scale(.15) rotate(-8deg); }
+    25% { opacity: 1; }
+    100% { opacity: 1; transform: scale(2.8) rotate(8deg); }
+}
+
+@keyframes ccEndingDarken {
+    0% { opacity: 0; }
+    25% { opacity: .15; }
+    100% { opacity: 1; }
+}
+
+#ccSecretRoom .cc-character.cc-ending-aim {
+    animation: ccCharacterAim .8s ease-in-out forwards;
+}
+
+@keyframes ccCharacterAim {
+    0% { transform: translateX(-50%) translateY(0) rotate(0); }
+    55% { transform: translateX(-50%) translateY(-3%) rotate(-2deg); }
+    100% { transform: translateX(-50%) translateY(-1%) rotate(1deg); }
+}
+
+@media (max-width: 600px) {
+    #ccDialogue {
+        bottom: 3%;
+        padding: 16px;
+    }
+
+    #ccDialogue .cc-dialogue-choices {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    #ccDialogue .cc-choice { min-height: 43px; }
+
+    #ccDialogue .cc-dialogue-text {
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #ccDialogue,
+    #ccSecretEnding,
+    #ccSecretRoom .cc-character {
+        transition-duration: .01ms;
+        animation-duration: .01ms !important;
+    }
+}
+</style>
+
+<div id="ccDialogue" role="dialog" aria-live="polite"
+     aria-label="Разговор с создателем">
+    <div class="cc-dialogue-top">
+        <span>CRAVECRAFT · PRIVATE OFFICE</span>
+        <span class="cc-dialogue-status" id="ccDialogueStatus">01 / 19</span>
+    </div>
+
+    <h2 class="cc-dialogue-name" id="ccDialogueName">Создатель</h2>
+    <p class="cc-dialogue-text" id="ccDialogueText"></p>
+    <div class="cc-dialogue-choices" id="ccDialogueChoices"></div>
+
+    <div class="cc-dialogue-foot" id="ccDialogueFoot">
+        ВЫБЕРИ СВОЙ ОТВЕТ
+    </div>
+</div>
+
+<div id="ccSecretEnding" aria-hidden="true">
+    <div class="cc-ending-caption" id="ccEndingCaption">
+        ТЫ СДЕЛАЛ СВОЙ ВЫБОР
+        <span>CRAVECRAFT · ENDING</span>
+    </div>
+    <div class="cc-ketchup"></div>
+    <div class="cc-ending-dark"></div>
+</div>
+
+<script>
+(() => {
+    const room = document.getElementById("ccSecretRoom");
+    const dialogue = document.getElementById("ccDialogue");
+    const nameEl = document.getElementById("ccDialogueName");
+    const textEl = document.getElementById("ccDialogueText");
+    const choicesEl = document.getElementById("ccDialogueChoices");
+    const statusEl = document.getElementById("ccDialogueStatus");
+    const footEl = document.getElementById("ccDialogueFoot");
+    const ending = document.getElementById("ccSecretEnding");
+    const endingCaption = document.getElementById("ccEndingCaption");
+
+    if (!room || !dialogue || !ending ||
+        dialogue.dataset.initialized === "true") return;
+
+    dialogue.dataset.initialized = "true";
+
+    let currentNode = "start";
+    let conversationStarted = false;
+    let endingRunning = false;
+
+    const story = {
+        start: {
+            step: "01",
+            text: "Наконец-то. Ты нашёл мою комнату. Скажи, ты вообще знаешь, куда попал?",
+            choices: [
+                { label: "«В секретную комнату CRAVECRAFT»", next: "knows" },
+                { label: "«Пока не понял…»", next: "lost" }
+            ]
+        },
+
+        knows: {
+            step: "02",
+            text: "Хорошо. Значит, ты внимательный. А ты думаешь, кто-то ещё знает об этом месте?",
+            choices: [
+                { label: "«Нет, только я»", next: "alone" },
+                { label: "«Может быть, кто-то знает»", next: "suspicious" }
+            ]
+        },
+
+        lost: {
+            step: "02",
+            text: "Тогда осмотрись. Здесь каждая вещь стоит не просто так. Ты всегда лезешь туда, куда не звали?",
+            choices: [
+                { label: "«Если мне интересно — да»", next: "curious" },
+                { label: "«Я просто исследую сайт»", next: "visitor" }
+            ]
+        },
+
+        alone: {
+            step: "03",
+            text: "Только ты? Забавно. А если я скажу, что ждал именно тебя?",
+            choices: [
+                { label: "«Зачем ты меня ждал?»", next: "waiting" },
+                { label: "«Звучит подозрительно»", next: "suspicious" }
+            ]
+        },
+
+        suspicious: {
+            step: "03",
+            text: "Ты быстро начинаешь подозревать людей. Может, тебе стоит задать вопрос самому себе?",
+            choices: [
+                { label: "«Что ты скрываешь?»", next: "secret" },
+                { label: "«Мне пора уходить»", next: "leave" }
+            ]
+        },
+
+        curious: {
+            step: "03",
+            text: "Любопытство — полезная вещь. Иногда оно открывает двери, которые лучше было оставить закрытыми.",
+            choices: [
+                { label: "«Я не боюсь»", next: "brave" },
+                { label: "«Что за дверь позади тебя?»", next: "door" }
+            ]
+        },
+
+        visitor: {
+            step: "03",
+            text: "Просто сайт? После всего, что ты увидел? Ладно. Тогда ответь мне ещё на один вопрос.",
+            choices: [
+                { label: "«Спрашивай»", next: "secret" },
+                { label: "«Я уже ухожу»", next: "leave" }
+            ]
+        },
+
+        waiting: {
+            step: "04",
+            text: "Потому что ты дошёл дальше, чем остальные. Но ты всё ещё не понимаешь, что происходит.",
+            choices: [
+                { label: "«Объясни мне»", next: "explain" },
+                { label: "«Мне это не нравится»", next: "leave" }
+            ]
+        },
+
+        secret: {
+            step: "04",
+            text: "У каждой истории есть секрет. Но не каждый секрет предназначен для чужих глаз.",
+            choices: [
+                { label: "«Я хочу знать правду»", next: "truth" },
+                { label: "«Тогда зачем позвал меня?»", next: "waiting" }
+            ]
+        },
+
+        brave: {
+            step: "04",
+            text: "Смелые слова. Посмотрим, останешься ли ты таким же смелым, когда разговор закончится.",
+            choices: [
+                { label: "«Я готов»", next: "truth" },
+                { label: "«Хватит загадок»", next: "explain" }
+            ]
+        },
+
+        door: {
+            step: "04",
+            text: "За этой дверью ничего, что тебе сейчас нужно. Лучше поговорим о том, зачем ты сюда пришёл.",
+            choices: [
+                { label: "«Я пришёл за ответами»", next: "truth" },
+                { label: "«Я хочу закончить разговор»", next: "leave" }
+            ]
+        },
+
+        explain: {
+            step: "05",
+            text: "Ты хотел увидеть секрет. Ты его увидел. Но прежде чем закончить, я хочу задать тебе ещё несколько вопросов.",
+            choices: [
+                { label: "«Ладно, спрашивай»", next: "truth" },
+                { label: "«Я слушаю»", next: "truth" }
+            ]
+        },
+
+        truth: {
+            step: "06",
+            text: "Правда в том, что ты мог просто пройти мимо. Но ты нажимал, искал, исследовал. И вот мы здесь.",
+            choices: [
+                { label: "«И что теперь?»", next: "finalQuestion" },
+                { label: "«Это ещё не конец»", next: "finalQuestion" }
+            ]
+        },
+
+        leave: {
+            step: "06",
+            text: "Уйти всегда проще. Но сначала ответь на несколько вопросов — и я не стану тебя задерживать.",
+            choices: [
+                { label: "«Хорошо, спрашивай»", next: "finalQuestion" },
+                { label: "«Только не затягивай»", next: "finalQuestion" }
+            ]
+        },
+
+        finalQuestion: {
+            step: "07",
+            text: "Скажи мне честно. Если бы ты мог узнать всё, что скрывает CRAVECRAFT, ты бы продолжил?",
+            choices: [
+                { label: "«Да. Я хочу знать всё»", next: "finalA" },
+                { label: "«Нет. Я лучше уйду»", next: "finalB" }
+            ]
+        },
+
+        finalA: {
+            step: "08",
+            text: "Я так и думал. Ты не остановился даже тогда, когда мог. Но у меня осталось ещё несколько вопросов.",
+            choices: [
+                { label: "«Я готов»", next: "converge" },
+                { label: "«Спрашивай дальше»", next: "converge" }
+            ]
+        },
+
+        finalB: {
+            step: "08",
+            text: "Вот как? Странно. Обычно люди говорят это раньше. Но прежде чем ты уйдёшь, ответь на мои вопросы.",
+            choices: [
+                { label: "«О чём ты говоришь?»", next: "converge" },
+                { label: "«Ладно, спрашивай»", next: "converge" }
+            ]
+        },
+
+        converge: {
+            step: "09",
+            text: "Вопрос 9. Как ты думаешь, почему я построил эту комнату?",
+            choices: [
+                { label: "«Чтобы скрыть свою историю»", next: "extra10" },
+                { label: "«Чтобы проверить любопытных»", next: "extra10" }
+            ]
+        },
+
+        extra10: {
+            step: "10",
+            text: "Вопрос 10. Ты заметил что-нибудь необычное в этой комнате?",
+            choices: [
+                { label: "«Здесь всё выглядит подозрительно»", next: "extra11" },
+                { label: "«Пока не всё понял»", next: "extra11" }
+            ]
+        },
+
+        extra11: {
+            step: "11",
+            text: "Вопрос 11. Что для тебя важнее: узнать правду или сохранить тайну?",
+            choices: [
+                { label: "«Я выбираю правду»", next: "extra12" },
+                { label: "«Пусть тайна останется»", next: "extra12" }
+            ]
+        },
+
+        extra12: {
+            step: "12",
+            text: "Вопрос 12. Если бы ты мог изменить историю CRAVECRAFT, что бы ты сделал?",
+            choices: [
+                { label: "«Раскрыл бы все секреты»", next: "extra13" },
+                { label: "«Оставил бы загадку»", next: "extra13" }
+            ]
+        },
+
+        extra13: {
+            step: "13",
+            text: "Вопрос 13. Ты доверяешь мне после всего, что услышал?",
+            choices: [
+                { label: "«Да, я тебе доверяю»", next: "extra14" },
+                { label: "«Нет, пока не могу»", next: "extra14" }
+            ]
+        },
+
+        extra14: {
+            step: "14",
+            text: "Вопрос 14. Как думаешь, другие посетители когда-нибудь найдут эту комнату?",
+            choices: [
+                { label: "«Рано или поздно найдут»", next: "extra15" },
+                { label: "«Нет, это наш секрет»", next: "extra15" }
+            ]
+        },
+
+        extra15: {
+            step: "15",
+            text: "Вопрос 15. Если бы ты мог задать мне один вопрос, что бы ты спросил?",
+            choices: [
+                { label: "«Кто ты на самом деле?»", next: "extra16" },
+                { label: "«Что ты скрываешь?»", next: "extra16" }
+            ]
+        },
+
+        extra16: {
+            step: "16",
+            text: "Вопрос 16. Ты бы рассказал друзьям о своём открытии?",
+            choices: [
+                { label: "«Конечно, рассказал бы»", next: "extra17" },
+                { label: "«Нет, оставил бы в секрете»", next: "extra17" }
+            ]
+        },
+
+        extra17: {
+            step: "17",
+            text: "Вопрос 17. Ты жалеешь, что открыл эту комнату?",
+            choices: [
+                { label: "«Нет, ни секунды»", next: "extra18" },
+                { label: "«Я пока не уверен»", next: "extra18" }
+            ]
+        },
+
+        extra18: {
+            step: "18",
+            text: "Вопрос 18. Ты готов услышать моё последнее признание?",
+            choices: [
+                { label: "«Да, говори»", next: "last" },
+                { label: "«Я хочу знать всю правду»", next: "last" }
+            ]
+        },
+
+        last: {
+            step: "19",
+            text: "Вопрос 19. Мы подошли к концу. Если бы ты мог начать это приключение заново, ты бы снова открыл секретную комнату CRAVECRAFT?",
+            choices: [
+                {
+                    label: "«Да. Я бы сделал это снова»",
+                    next: "ending",
+                    final: true
+                },
+                {
+                    label: "«Нет. Некоторые тайны лучше не трогать»",
+                    next: "ending",
+                    final: true
+                }
+            ]
+        }
+    };
+
+    function renderNode(nodeId) {
+        const node = story[nodeId];
+        if (!node || endingRunning) return;
+
+        currentNode = nodeId;
+        nameEl.textContent = "Создатель";
+        textEl.textContent = node.text;
+        statusEl.textContent = node.step + " / 19";
+        footEl.textContent = node.choices.length === 1
+            ? "ПОСЛЕДНИЙ ВЫБОР"
+            : "ВЫБЕРИ СВОЙ ОТВЕТ";
+
+        choicesEl.replaceChildren();
+
+        node.choices.forEach((choice) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "cc-choice";
+            button.textContent = choice.label;
+
+            button.addEventListener("click", () => {
+                if (endingRunning) return;
+
+                if (choice.final) {
+                    startEnding();
+                    return;
+                    
+                }
+
+                renderNode(choice.next);
+            });
+
+            choicesEl.appendChild(button);
+        });
+
+        dialogue.classList.add("cc-dialogue-visible");
+    }
+
+    function startConversation() {
+        if (conversationStarted || endingRunning) return;
+        conversationStarted = true;
+        renderNode("start");
+    }
+
+    function startEnding() {
+        if (endingRunning) return;
+        endingRunning = true;
+
+        choicesEl.replaceChildren();
+        textEl.textContent = "…";
+        statusEl.textContent = "FINAL";
+        footEl.textContent = "CRAVECRAFT · ENDING";
+
+        const character = room.querySelector(".cc-character");
+
+        if (character) {
+            character.classList.add("cc-ending-aim");
+        }
+
+        endingCaption.innerHTML =
+            'ТЫ СДЕЛАЛ СВОЙ ВЫБОР<span>CRAVECRAFT · FINAL SCENE</span>';
+
+        ending.classList.remove(
+            "cc-ending-active",
+            "cc-ending-splash",
+            "cc-ending-darken"
+        );
+
+        ending.setAttribute("aria-hidden", "false");
+
+        setTimeout(() => {
+            ending.classList.add("cc-ending-active");
+
+            setTimeout(() => {
+                endingCaption.innerHTML =
+                    'БУМ<span>CRAVECRAFT · GAME OVER</span>';
+
+                ending.classList.add("cc-ending-splash");
+
+                setTimeout(() => {
+                    ending.classList.add("cc-ending-darken");
+
+                    setTimeout(() => {
+                        ending.classList.remove(
+                            "cc-ending-active",
+                            "cc-ending-splash",
+                            "cc-ending-darken"
+                        );
+
+                        ending.setAttribute("aria-hidden", "true");
+                        dialogue.classList.remove("cc-dialogue-visible");
+                        room.classList.remove("cc-room-open");
+                        room.setAttribute("aria-hidden", "true");
+
+                        if (character) {
+                            character.classList.remove("cc-ending-aim");
+                        }
+
+                        conversationStarted = false;
+                        endingRunning = false;
+                        currentNode = "start";
+                    }, 2400);
+                }, 900);
+            }, 1800);
+        }, 800);
+    }
+
+    const observer = new MutationObserver(() => {
+        if (room.classList.contains("cc-room-open")) {
+            startConversation();
+        } else if (!endingRunning) {
+            dialogue.classList.remove("cc-dialogue-visible");
+            conversationStarted = false;
+        }
+    });
+
+    observer.observe(room, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+})();
+</script>
+
+<!-- FIX: BURGER CURSOR IN CRAVECRAFT SECRET ROOM -->
+
+<style>
+#burgerCursor {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    pointer-events: none !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+#cursorMessage {
+    z-index: 2147483646 !important;
+}
+
+#ccSecretRoom #burgerCursor,
+#ccSecretRoom #cursorMessage {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+}
+</style>
+
+<script>
+(() => {
+    const burger = document.getElementById("burgerCursor");
+    const message = document.getElementById("cursorMessage");
+
+    if (!burger || window.__ccBurgerRoomFix) return;
+    window.__ccBurgerRoomFix = true;
+
+    document.body.appendChild(burger);
+
+    if (message) {
+        document.body.appendChild(message);
+    }
+
+    function updateBurgerCursor(e) {
+        burger.style.setProperty("left", e.clientX + "px", "important");
+        burger.style.setProperty("top", e.clientY + "px", "important");
+        burger.style.setProperty("display", "block", "important");
+        burger.style.setProperty("visibility", "visible", "important");
+    }
+
+    document.addEventListener("mousemove", updateBurgerCursor, true);
+    burger.style.setProperty("z-index", "2147483647", "important");
+})();
+</script>
+
+<!-- END FIX -->
+
+</body>
+</html>
